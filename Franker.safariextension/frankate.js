@@ -1,66 +1,70 @@
-function getSelectedText() {
-	var txt = '';
-	if (window.getSelection) {
-		txt = window.getSelection();
-	} else if (document.getSelection) {
-		txt = document.getSelection();
-	} else if (document.selection) {
-		txt = document.selection.createRange().text;
-	}
-	return txt;
-}
-
-function frankateSelection() {
-	var text = getSelectedText();
-	if (text + "" != "") {
-		console.log(document.location.href);
-		console.log("selected: " + text);
-		safari.self.tab.dispatchMessage("frankateSelectionRequest", text + "");
-	}
-}
+// ==== Message Management ====
 
 function handleMessage(msgEvent) {
 	if (msgEvent.name == "frankateSelection") {
 		frankateSelection();
 	} else if (msgEvent.name == "frankateSelectionResponse") {
-		console.log(document.location.href);
-		console.log("translated:" + msgEvent.message);
-		var text = getSelectedText();
-		if (text + "" != "") {
-			var translationText = document.createTextNode("(" + msgEvent.message + ")");
-			var translationNode = document.createElement("span");
-			translationNode.setAttribute("class", "google-dst-text");
-			translationNode.appendChild(translationText);
-			if (text.baseNode.nextSibling) {
-				text.baseNode.parentNode.insertBefore(translationNode, text.baseNode.nextSibling);
-			} else {
-				text.baseNode.parentNode.appendChild(translationNode);
-			}
-		}
+		injectTranslationForSelection(msgEvent);
+	} else if (msgEvent.name == "frankatePage") {
+		frankatePage();
+	// } else if (msgEvent.name == "transformGoogleTranslationBlocks") {
+	// 	transformGoogleTranslationBlocks();
 	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
-		console.log(document.location.href);
-		console.log("Setting shortcut: " + msgEvent.message);
-		var values = msgEvent.message.split(":");
-		if (values.length > 1) {
-			shortcut.remove(values[1]);
-		}
-		shortcut.remove(values[0]);
-		shortcut.add(values[0], function() {
-			frankateSelection();
-		},{
-				'type':'keydown',
-				'propagate':false,
-				'disable_in_input':true,
-				'target':document
-		});
+		setFrankateSelectionShortcut(msgEvent);
+	} else if (msgEvent.name == "shortcutFrankatePageValue") {
+		setFrankatePageShortcut(msgEvent);
 	}
 }
-safari.self.addEventListener("message", handleMessage, false);
 
-safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
+// ==== Shortcuts ====
 
-// the real franker
-function frankate() {
+function setFrankateSelectionShortcut(msgEvent) {
+	//console.log(document.location.href);
+	//console.log("Setting shortcut: " + msgEvent.message);
+	var values = msgEvent.message.split(":");
+	if (values.length > 1) {
+		shortcut.remove(values[1]);
+	}
+	shortcut.remove(values[0]); // must remove first to ensure we do not duplicate the shortcut
+	shortcut.add(values[0], function() {
+		frankateSelection();
+	},{
+			'type':'keydown',
+			'propagate':false,
+			'disable_in_input':true,
+			'target':document
+	});
+}
+
+function setFrankatePageShortcut(msgEvent) {
+	//console.log(document.location.href);
+	//console.log("Setting shortcut: " + msgEvent.message);
+	var values = msgEvent.message.split(":");
+	if (values.length > 1) {
+		shortcut.remove(values[1]);
+	}
+	shortcut.remove(values[0]); // must remove first to ensure we do not duplicate the shortcut
+	shortcut.add(values[0], function() {
+		frankatePage();
+	},{
+			'type':'keydown',
+			'propagate':false,
+			'disable_in_input':true,
+			'target':document
+	});
+}
+
+// ==== Whole Page ====
+
+function frankatePage() {
+	safari.self.tab.dispatchMessage("frankatePageRequest", "");
+}
+
+function transformGoogleTranslationBlocks() {
+	if (document.location.href.indexOf("translate.googleusercontent.com", 0) < 0) {
+		console.log("Not transforming google translation blocks, wrong page URL: " + document.location.href);
+		return;
+	}
 	var spans = document.getElementsByTagName('span');
 	var i;
 	for (i = 0; i < spans.length; i++) {
@@ -104,4 +108,51 @@ function frankate() {
 	}
 }
 
-//frankate();
+// ==== Selection ====
+
+function getSelectedText() {
+	var txt = '';
+	if (window.getSelection) {
+		txt = window.getSelection();
+	} else if (document.getSelection) {
+		txt = document.getSelection();
+	} else if (document.selection) {
+		txt = document.selection.createRange().text;
+	}
+	return txt;
+}
+
+function frankateSelection() {
+	var text = getSelectedText();
+	if (text + "" != "") {
+		//console.log(document.location.href);
+		//console.log("selected: " + text);
+		safari.self.tab.dispatchMessage("frankateSelectionRequest", text + "");
+	}
+}
+
+function injectTranslationForSelection(msgEvent) {
+	//console.log(document.location.href);
+	//console.log("translated:" + msgEvent.message);
+	var text = getSelectedText();
+	if (text + "" != "") {
+		var translationText = document.createTextNode("(" + msgEvent.message + ")");
+		var translationNode = document.createElement("span");
+		translationNode.setAttribute("class", "google-dst-text");
+		translationNode.appendChild(translationText);
+		if (text.baseNode.nextSibling) {
+			text.baseNode.parentNode.insertBefore(translationNode, text.baseNode.nextSibling);
+		} else {
+			text.baseNode.parentNode.appendChild(translationNode);
+		}
+	}
+}
+
+// ==== Initial ====
+
+safari.self.addEventListener("message", handleMessage, false);
+
+safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
+safari.self.tab.dispatchMessage("shortcutFrankatePageRequest", "");
+
+transformGoogleTranslationBlocks();

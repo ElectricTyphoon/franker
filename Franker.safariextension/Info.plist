@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.6</string>
+	<string>0.7</string>
 	<key>CFBundleVersion</key>
-	<string>0.6</string>
+	<string>0.7</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Context Menu Items</key>
@@ -25,6 +25,14 @@
 				<string>frankate_selection</string>
 				<key>Title</key>
 				<string>Frankate Selection</string>
+			</dict>
+			<dict>
+				<key>Command</key>
+				<string>frankate_page</string>
+				<key>Identifier</key>
+				<string>frankate_page</string>
+				<key>Title</key>
+				<string>Frankate Page</string>
 			</dict>
 		</array>
 		<key>Global Page</key>
