@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<title>The Real Franker!</title>
+		<script type="text/javascript" src="http://www.google.com/jsapi">
+	    </script>
+		<script type="text/javascript">
+			function performCommand(event) {
+				if (event.command === "frankate_selection") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelection", "");
+				}
+				if (event.command === "frankate_page") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankatePage", "");
+				}
+			}
+			safari.application.addEventListener("command", performCommand, false);
+		</script>
+		<script type="text/javascript">
+			google.load("language", "1");
+			var srcText;
+			var langDst = safari.extension.settings.lang_dst;
+			function translateCallBack(result) {
+				safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelectionResponse", result.translation);
+			}
+			function detectCallBack(result) {
+		        if (!result.error && result.language) {
+		          google.language.translate(srcText, result.language, safari.extension.settings.lang_dst, translateCallBack);
+		        }
+			}
+			function respondToMessage(theMessageEvent) {
+		    	if(theMessageEvent.name === "frankateSelectionRequest") {
+					srcText = theMessageEvent.message;
+					if (safari.extension.settings.lang_src == "auto") {
+						google.language.detect(srcText, detectCallBack);
+					} else {
+						google.language.translate(srcText, safari.extension.settings.lang_src, safari.extension.settings.lang_dst, translateCallBack);
+					}
+				} else if (theMessageEvent.name === "frankatePageRequest") {
+					var langSrc=safari.extension.settings.lang_src;
+					if (langSrc === "auto") {
+						langSrc = "" // means "detect language"
+					}
+					var langDst=safari.extension.settings.lang_dst;
+					var newURL = 'http://translate.google.com/translate?u='+escape(safari.application.activeBrowserWindow.activeTab.url)+'&hl='+langDst+'&ie=UTF-8&sl='+langSrc+'&tl='+langDst
+					safari.application.activeBrowserWindow.activeTab.url=newURL;
+					//safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("transformGoogleTranslationBlocks", "");
+				} else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
+				} else if (theMessageEvent.name === "shortcutFrankatePageRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankatePageValue", safari.extension.settings.shortcut_frankate_page);
+				}
+			}
+			safari.application.addEventListener("message",respondToMessage,false);
+		</script>
+		<!-- Settings change watcher -->
+		<script>
+			function settingsChanged(event) {
+				if (event.key == "shortcut_frankate_selection") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", event.newValue + ":" + event.oldValue);
+				}
+				if (event.key == "shortcut_frankate_page") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankatePageValue", event.newValue + ":" + event.oldValue);
+				}
+			}
+			safari.extension.settings.addEventListener("change", settingsChanged, false);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
