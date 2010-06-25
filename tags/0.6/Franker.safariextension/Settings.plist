@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<string>auto</string>
+		<key>Key</key>
+		<string>lang_src</string>
+		<key>Title</key>
+		<string>Source Language</string>
+		<key>Titles</key>
+		<array>
+			<string>Autodetect</string>
+			<string>English</string>
+			<string>Russian</string>
+			<string>Swedish</string>
+		</array>
+		<key>Type</key>
+		<string>ListBox</string>
+		<key>Values</key>
+		<array>
+			<string>auto</string>
+			<string>en</string>
+			<string>ru</string>
+			<string>sv</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>en</string>
+		<key>Key</key>
+		<string>lang_dst</string>
+		<key>Title</key>
+		<string>Destination Language</string>
+		<key>Titles</key>
+		<array>
+			<string>English</string>
+			<string>Russian</string>
+			<string>Swedish</string>
+		</array>
+		<key>Type</key>
+		<string>ListBox</string>
+		<key>Values</key>
+		<array>
+			<string>en</string>
+			<string>ru</string>
+			<string>sv</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>Ctrl+F</string>
+		<key>Key</key>
+		<string>shortcut_frankate_selection</string>
+		<key>Title</key>
+		<string>Frankate Selection Shortcut</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+</array>
+</plist>
