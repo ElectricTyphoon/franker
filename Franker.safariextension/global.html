@@ -14,24 +14,37 @@
 		<script type="text/javascript">
 			google.load("language", "1");
 			var srcText;
+			var langDst = safari.extension.settings.lang_dst;
 			function translateCallBack(result) {
 				safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelectionResponse", result.translation);
 			}
 			function detectCallBack(result) {
 		        if (!result.error && result.language) {
-		          google.language.translate(srcText, result.language, "en", translateCallBack);
+		          google.language.translate(srcText, result.language, safari.extension.settings.lang_dst, translateCallBack);
 		        }
 			}
-		    function translateWithDetect(text) {
-				srcText = text;
-				google.language.detect(srcText, detectCallBack);
-		    }
 			function respondToMessage(theMessageEvent) {
 		    	if(theMessageEvent.name === "frankateSelectionRequest") {
-					translateWithDetect(theMessageEvent.message);
+					srcText = theMessageEvent.message;
+					if (safari.extension.settings.lang_src == "auto") {
+						google.language.detect(srcText, detectCallBack);
+					} else {
+						google.language.translate(srcText, safari.extension.settings.lang_src, safari.extension.settings.lang_dst, translateCallBack);
+					}
+				} else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
 				}
 			}
 			safari.application.addEventListener("message",respondToMessage,false);
+		</script>
+		<!-- Settings change watcher -->
+		<script>
+			function settingsChanged(event) {
+				if (event.key == "shortcut_frankate_selection") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", event.newValue + ":" + event.oldValue);
+				}
+			}
+			safari.extension.settings.addEventListener("change", settingsChanged, false);
 		</script>
 	</head>
 	<body>

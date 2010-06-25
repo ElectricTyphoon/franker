@@ -13,7 +13,8 @@ function getSelectedText() {
 function frankateSelection() {
 	var text = getSelectedText();
 	if (text + "" != "") {
-//		console.log("selected: " + text);
+		console.log(document.location.href);
+		console.log("selected: " + text);
 		safari.self.tab.dispatchMessage("frankateSelectionRequest", text + "");
 	}
 }
@@ -22,7 +23,8 @@ function handleMessage(msgEvent) {
 	if (msgEvent.name == "frankateSelection") {
 		frankateSelection();
 	} else if (msgEvent.name == "frankateSelectionResponse") {
-//		console.log("translated:" + msgEvent.message);
+		console.log(document.location.href);
+		console.log("translated:" + msgEvent.message);
 		var text = getSelectedText();
 		if (text + "" != "") {
 			var translationText = document.createTextNode("(" + msgEvent.message + ")");
@@ -35,18 +37,27 @@ function handleMessage(msgEvent) {
 				text.baseNode.parentNode.appendChild(translationNode);
 			}
 		}
+	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
+		console.log(document.location.href);
+		console.log("Setting shortcut: " + msgEvent.message);
+		var values = msgEvent.message.split(":");
+		if (values.length > 1) {
+			shortcut.remove(values[1]);
+		}
+		shortcut.remove(values[0]);
+		shortcut.add(values[0], function() {
+			frankateSelection();
+		},{
+				'type':'keydown',
+				'propagate':false,
+				'disable_in_input':true,
+				'target':document
+		});
 	}
 }
 safari.self.addEventListener("message", handleMessage, false);
 
-shortcut.add("Ctrl+Shift+F",function() {
-	frankateSelection();
-},{
-		'type':'keydown',
-		'propagate':true,
-		'target':document
-});
-
+safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
 
 // the real franker
 function frankate() {
