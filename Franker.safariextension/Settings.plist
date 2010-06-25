@@ -13,7 +13,11 @@
 		<array>
 			<string>Autodetect</string>
 			<string>English</string>
+			<string>French</string>
+			<string>German</string>
+			<string>Italian</string>
 			<string>Russian</string>
+			<string>Spanish</string>
 			<string>Swedish</string>
 		</array>
 		<key>Type</key>
@@ -22,7 +26,11 @@
 		<array>
 			<string>auto</string>
 			<string>en</string>
+			<string>fr</string>
+			<string>de</string>
+			<string>it</string>
 			<string>ru</string>
+			<string>es</string>
 			<string>sv</string>
 		</array>
 	</dict>
@@ -36,7 +44,11 @@
 		<key>Titles</key>
 		<array>
 			<string>English</string>
+			<string>French</string>
+			<string>German</string>
+			<string>Italian</string>
 			<string>Russian</string>
+			<string>Spanish</string>
 			<string>Swedish</string>
 		</array>
 		<key>Type</key>
@@ -44,7 +56,11 @@
 		<key>Values</key>
 		<array>
 			<string>en</string>
+			<string>fr</string>
+			<string>de</string>
+			<string>it</string>
 			<string>ru</string>
+			<string>es</string>
 			<string>sv</string>
 		</array>
 	</dict>
