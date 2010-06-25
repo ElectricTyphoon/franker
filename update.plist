@@ -10,11 +10,11 @@
        <key>Developer Identifier</key>
        <string>YC74FH34F8</string>
        <key>CFBundleVersion</key>
-       <string>0.7</string>
+       <string>0.7.1</string>
        <key>CFBundleShortVersionString</key>
-       <string>0.7</string>
+       <string>0.7.1</string>
        <key>URL</key>
-       <string>http://franker.googlecode.com/files/Franker_0.7.safariextz</string>
+       <string>http://franker.googlecode.com/svn/release/Franker.safariextz</string>
      </dict>
    </array>
 </dict>
