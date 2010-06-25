@@ -1,0 +1,24 @@
+SPAN.google-src-text {
+	display: inline !important;
+
+	color: #000000 !important;
+	background-color: #FFFFFF !important;
+
+	font-size: inherit !important;
+/*	
+	font-weight: normal !important;
+	font-style: normal !important;
+*/
+}
+
+SPAN.google-dst-text {
+	color: #999999 !important;
+	background-color: #F9F9F9 !important;
+
+	font-size: inherit !important;
+
+/*
+	font-weight: normal !important;
+	font-style: normal !important;
+*/
+}
