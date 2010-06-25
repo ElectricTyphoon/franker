@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>The Real Franker!</title>
+		<script type="text/javascript" src="http://www.google.com/jsapi">
+	    </script>
+		<script type="text/javascript">
+			function performCommand(event) {
+				if (event.command === "frankate_selection") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelection", "");
+				}
+			}
+			safari.application.addEventListener("command", performCommand, false);
+		</script>
+		<script type="text/javascript">
+			google.load("language", "1");
+			var srcText;
+			function translateCallBack(result) {
+				safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelectionResponse", result.translation);
+			}
+			function detectCallBack(result) {
+		        if (!result.error && result.language) {
+		          google.language.translate(srcText, result.language, "en", translateCallBack);
+		        }
+			}
+		    function translateWithDetect(text) {
+				srcText = text;
+				google.language.detect(srcText, detectCallBack);
+		    }
+			function respondToMessage(theMessageEvent) {
+		    	if(theMessageEvent.name === "frankateSelectionRequest") {
+					translateWithDetect(theMessageEvent.message);
+				}
+			}
+			safari.application.addEventListener("message",respondToMessage,false);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
