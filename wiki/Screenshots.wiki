@@ -1,12 +1,11 @@
 = Settings =
 http://franker.googlecode.com/files/FrankerSettings_081_Corrected.png
 
-= Selection Frankated =
+= Frankated =
 Selected text (by user) was split to sentences, each sentence then was translated separately and translation was injected.
 
-http://franker.googlecode.com/files/Selection_081.png
+Only first sentence was selected in the first paragraph; part of a sentence was selected in second sentence; big block of text was selected at the end.
 
-= Page Frankated =
-[http://translate.google.com/ GoogleTranslate] bubbles inlined.
+http://franker.googlecode.com/files/Selection_081_Big.png
 
-http://franker.googlecode.com/files/PageFrankated.png
+All the text at a page will be like last part of the screenshot above if you just "Frankate Page" without custom selection. Basically, Franker just inlines [http://translate.google.com/ GoogleTranslate]'s bubbles.
