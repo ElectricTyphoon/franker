@@ -1,7 +1,8 @@
-= Settings =
-http://franker.googlecode.com/files/FrankerSettings_081_Corrected.png
-
-= Frankated =
+<table width="100" align="center">
+<tr>
+<th>Frankated</th><th>Settings</th>
+</tr>
+<tr><td>
 Selected text (by user) was split to sentences, each sentence then was translated separately and translation was injected.
 
 Only first sentence was selected in the first paragraph; part of a sentence was selected in second sentence; big block of text was selected at the end.
@@ -9,3 +10,7 @@ Only first sentence was selected in the first paragraph; part of a sentence was 
 http://franker.googlecode.com/files/Selection_081_Big.png
 
 All the text at a page will be like last part of the screenshot above if you just "Frankate Page" without custom selection. Basically, Franker just inlines [http://translate.google.com/ GoogleTranslate]'s bubbles.
+</td><td>
+http://franker.googlecode.com/files/FrankerSettings_081_Corrected.png 
+</td></tr>
+</table>
