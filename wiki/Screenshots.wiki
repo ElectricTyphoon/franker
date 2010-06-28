@@ -4,7 +4,7 @@ http://franker.googlecode.com/files/FrankerSettings_081_Corrected.png
 = Selection Frankated =
 Selected text (by user) was split to sentences, each sentence then was translated separately and translation was injected.
 
-http://franker.googlecode.com/files/SelectionFrankatedSel.png
+http://franker.googlecode.com/files/Selection_081.png
 
 = Page Frankated =
 [http://translate.google.com/ GoogleTranslate] bubbles inlined.
