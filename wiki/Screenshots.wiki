@@ -1,5 +1,5 @@
 = Settings =
-http://franker.googlecode.com/files/FrankerSettings_081.png
+http://franker.googlecode.com/files/FrankerSettings_081_Corrected.png
 
 = Selection Frankated =
 Selected text (by user) was split to sentences, each sentence then was translated separately and translation was injected.
