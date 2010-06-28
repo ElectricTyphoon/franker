@@ -3,12 +3,18 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>Title</key>
+		<string>Languages</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
 		<key>DefaultValue</key>
 		<string>auto</string>
 		<key>Key</key>
 		<string>lang_src</string>
 		<key>Title</key>
-		<string>Source Language</string>
+		<string>Source</string>
 		<key>Titles</key>
 		<array>
 			<string>Autodetect</string>
@@ -21,7 +27,7 @@
 			<string>Swedish</string>
 		</array>
 		<key>Type</key>
-		<string>ListBox</string>
+		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
 			<string>auto</string>
@@ -40,7 +46,7 @@
 		<key>Key</key>
 		<string>lang_dst</string>
 		<key>Title</key>
-		<string>Destination Language</string>
+		<string>Destination</string>
 		<key>Titles</key>
 		<array>
 			<string>English</string>
@@ -52,7 +58,7 @@
 			<string>Swedish</string>
 		</array>
 		<key>Type</key>
-		<string>ListBox</string>
+		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
 			<string>en</string>
@@ -65,12 +71,22 @@
 		</array>
 	</dict>
 	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Shortcuts</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
 		<key>DefaultValue</key>
 		<string>Ctrl+F</string>
 		<key>Key</key>
 		<string>shortcut_frankate_selection</string>
 		<key>Title</key>
-		<string>Frankate Selection Shortcut</string>
+		<string>Frankate Selection</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
@@ -80,7 +96,33 @@
 		<key>Key</key>
 		<string>shortcut_frankate_page</string>
 		<key>Title</key>
-		<string>Frankate Page Shortcut</string>
+		<string>GoogleTranslate Page</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>state_frankate_page</string>
+		<key>Title</key>
+		<string>frankate translated</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Styles</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>color: #292 !important; font-size: inherit !important;</string>
+		<key>Key</key>
+		<string>style_dst</string>
+		<key>Title</key>
+		<string>Translated Text</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>

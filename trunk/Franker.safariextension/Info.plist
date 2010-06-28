@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7.3</string>
+	<string>0.8.1</string>
 	<key>CFBundleVersion</key>
-	<string>0.7.3</string>
+	<string>0.8.1</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Context Menu Items</key>
@@ -37,6 +37,25 @@
 		</array>
 		<key>Global Page</key>
 		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>frankate_page</string>
+				<key>Identifier</key>
+				<string>toolbar_frankate_page</string>
+				<key>Image</key>
+				<string>Toolbar.png</string>
+				<key>Include By Default</key>
+				<false/>
+				<key>Label</key>
+				<string>Frankate Page</string>
+				<key>Palette Label</key>
+				<string>Frankate Page</string>
+				<key>Tool Tip</key>
+				<string>Frankates current page</string>
+			</dict>
+		</array>
 	</dict>
 	<key>Content</key>
 	<dict>
@@ -48,10 +67,6 @@
 				<string>frankate.js</string>
 			</array>
 		</dict>
-		<key>Stylesheets</key>
-		<array>
-			<string>frankate.css</string>
-		</array>
 	</dict>
 	<key>Description</key>
 	<string>Easy learn new languages by parallel reading internet sites with Ilya Frank's method.</string>

@@ -42,11 +42,14 @@
 					var langDst=safari.extension.settings.lang_dst;
 					var newURL = 'http://translate.google.com/translate?u='+escape(safari.application.activeBrowserWindow.activeTab.url)+'&hl='+langDst+'&ie=UTF-8&sl='+langSrc+'&tl='+langDst
 					safari.application.activeBrowserWindow.activeTab.url=newURL;
-					//safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("transformGoogleTranslationBlocks", "");
 				} else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
 					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
 				} else if (theMessageEvent.name === "shortcutFrankatePageRequest") {
 					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankatePageValue", safari.extension.settings.shortcut_frankate_page);
+				} else if (theMessageEvent.name === "styleDestinationRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("styleDestinationValue", safari.extension.settings.style_dst);
+				} else if (theMessageEvent.name === "statePageEnabledRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("statePageEnabledValue", safari.extension.settings.state_frankate_page);
 				}
 			}
 			safari.application.addEventListener("message",respondToMessage,false);
