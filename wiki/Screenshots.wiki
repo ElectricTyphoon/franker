@@ -1,5 +1,3 @@
-#summary Screenshots
-
 = Settings =
 http://franker.googlecode.com/files/FrankerSettings_081.png
 
