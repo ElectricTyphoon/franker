@@ -46,6 +46,8 @@
 					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
 				} else if (theMessageEvent.name === "shortcutFrankatePageRequest") {
 					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankatePageValue", safari.extension.settings.shortcut_frankate_page);
+				} else if (theMessageEvent.name === "shortcutFrankateClearRequest") {
+					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shortcutFrankateClearValue", safari.extension.settings.shortcut_frankate_clear);
 				} else if (theMessageEvent.name === "styleDestinationRequest") {
 					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("styleDestinationValue", safari.extension.settings.style_dst);
 				} else if (theMessageEvent.name === "statePageEnabledRequest") {
