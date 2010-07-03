@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8.1</string>
+	<string>0.9.0</string>
 	<key>CFBundleVersion</key>
-	<string>0.8.1</string>
+	<string>0.9.0</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Context Menu Items</key>
@@ -67,6 +67,10 @@
 				<string>frankate.js</string>
 			</array>
 		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>frankate.css</string>
+		</array>
 	</dict>
 	<key>Description</key>
 	<string>Easy learn new languages by parallel reading internet sites with Ilya Frank's method.</string>
