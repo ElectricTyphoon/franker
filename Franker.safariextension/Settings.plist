@@ -14,7 +14,7 @@
 		<key>Key</key>
 		<string>lang_src</string>
 		<key>Title</key>
-		<string>Source</string>
+		<string>Translate from</string>
 		<key>Titles</key>
 		<array>
 			<string>Autodetect</string>
@@ -148,7 +148,7 @@
 		<key>Key</key>
 		<string>lang_dst</string>
 		<key>Title</key>
-		<string>Destination</string>
+		<string>Translate to</string>
 		<key>Titles</key>
 		<array>
 			<string>Afrikaans</string>
@@ -290,37 +290,17 @@
 		<key>Key</key>
 		<string>shortcut_frankate_selection</string>
 		<key>Title</key>
-		<string>Frankate Selection</string>
+		<string>Frankate</string>
 		<key>Type</key>
 		<string>TextField</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<string>Ctrl+Alt+F</string>
-		<key>Key</key>
-		<string>shortcut_frankate_page</string>
-		<key>Title</key>
-		<string>GoogleTranslate Page</string>
-		<key>Type</key>
-		<string>TextField</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
-		<string>state_frankate_page</string>
-		<key>Title</key>
-		<string>frankate translated</string>
-		<key>Type</key>
-		<string>CheckBox</string>
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
 		<string>Ctrl+Shift+F</string>
 		<key>Key</key>
-		<string>shortcut_frankate_clear</string>
+		<string>shortcut_frankate_clean</string>
 		<key>Title</key>
-		<string>Clear Page</string>
+		<string>Clean</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
@@ -336,7 +316,7 @@
 		<key>Key</key>
 		<string>style_dst</string>
 		<key>Title</key>
-		<string>Translated Text</string>
+		<string>Translated text</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
