@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>0.9.0</string>
+	<string>1.0.0</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Context Menu Items</key>
@@ -24,15 +24,7 @@
 				<key>Identifier</key>
 				<string>frankate_selection</string>
 				<key>Title</key>
-				<string>Frankate Selection</string>
-			</dict>
-			<dict>
-				<key>Command</key>
-				<string>frankate_page</string>
-				<key>Identifier</key>
-				<string>frankate_page</string>
-				<key>Title</key>
-				<string>Frankate Page</string>
+				<string>Frankate</string>
 			</dict>
 		</array>
 		<key>Global Page</key>
@@ -41,19 +33,19 @@
 		<array>
 			<dict>
 				<key>Command</key>
-				<string>frankate_page</string>
+				<string>frankate_selection</string>
 				<key>Identifier</key>
-				<string>toolbar_frankate_page</string>
+				<string>toolbar_frankate</string>
 				<key>Image</key>
 				<string>Toolbar.png</string>
 				<key>Include By Default</key>
 				<false/>
 				<key>Label</key>
-				<string>Frankate Page</string>
+				<string>Frankate</string>
 				<key>Palette Label</key>
-				<string>Frankate Page</string>
+				<string>Frankate</string>
 				<key>Tool Tip</key>
-				<string>Frankates current page</string>
+				<string>Frankates selection</string>
 			</dict>
 		</array>
 	</dict>
@@ -64,7 +56,8 @@
 			<key>End</key>
 			<array>
 				<string>shortcut.js</string>
-				<string>frankate.js</string>
+				<string>franker_core.js</string>
+				<string>inject.js</string>
 			</array>
 		</dict>
 		<key>Stylesheets</key>
