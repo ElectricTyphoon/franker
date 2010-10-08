@@ -43,12 +43,12 @@ function frankerInjectFrankate() {
 }
 
 function frankerInjectTranslateNextSentence() {
-	if (frankerCoreSelectNextSentence(document) != 0) {
-		return;
-	}
-	var srcText = frankerCoreGetSelectedText(document, true);
-	if (srcText == "") {
-		return;
+	var srcText = "";
+	while (srcText == "") {
+		if (frankerCoreSelectNextSentence(document) != 0) {
+			return;
+		}
+		srcText = frankerCoreGetSelectedText(document, true);
 	}
 	safari.self.tab.dispatchMessage("frankateSelectionRequest", srcText);
 }
