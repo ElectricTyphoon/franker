@@ -27,10 +27,12 @@ function frankerCoreInit(doc) {
 // does nothing and returns 'success' if the very small piece of text was selected.
 // does nothing and returns 'failure' if user selection boundary reached or infinity guard zeroed (max 50 calls in a row supported)
 // call immediately after frankerCoreInit() and after each frankerCoreInjectTranslation()
+// may select "empty" sentence, in this case just call the method again
 // returns 0 on success, -1 otherwise (means 'stop now')
 function frankerCoreSelectNextSentence(doc) {
 	if (doc.frankerSimpleRange) { // just do nothing if only part of sentence was selected
-		return 0;
+		// if nothing is actually selected then stop (also means we translated simple range already)
+		return (frankerCoreGetSelectedText(doc, true) != 0) ? 0 : -1;
 	}
 	
 	doc.frankerInfinityGuard--;
@@ -46,10 +48,6 @@ function frankerCoreSelectNextSentence(doc) {
 		return -1;
 	}
 
-	// var sentence = frankerCoreGetSelectedText(doc, true);
-	// if (sentence == "") {
-	// 	return frankerCoreSelectNextSentence(doc);
-	// }
 	frankerUtilTrimSelection(selection);
     return 0;
 }
@@ -106,6 +104,11 @@ function frankerUtilTrimString(str) {
 }
 
 function frankerUtilTrimSelection(selection) {
+	if (frankerUtilTrimString(selection + "") == "") {
+		selection.collapseToEnd();
+		return;
+	}
+	
 	var originalRange = selection.getRangeAt(0).cloneRange();
 	selection.collapseToStart();
 	selection.modify('extend', 'forward', 'character');
