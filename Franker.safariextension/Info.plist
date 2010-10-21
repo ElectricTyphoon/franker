@@ -66,13 +66,15 @@
 		</array>
 	</dict>
 	<key>Description</key>
-	<string>Expand your vocabulary by parallel reading internet sites.</string>
+	<string>Expand your vocabulary by parallel reading web sites.</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
 	<dict>
 		<key>Website Access</key>
 		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
 			<key>Level</key>
 			<string>All</string>
 		</dict>
