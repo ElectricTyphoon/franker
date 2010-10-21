@@ -1,0 +1,14 @@
+{
+  "name": "Franker",
+  "version": "1.0",
+  "description": "Expand your vocabulary!",
+  "background_page": "global.html",
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["franker.css"],
+      "js": ["shortcut.js", "franker_core.js", "inject.js"]
+    }
+  ]
+}

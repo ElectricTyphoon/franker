@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title>Franker Extension Options</title>
+		<script type="text/javascript">
+
+			// Saves options to localStorage.
+			function save_options() {
+				var frankate = document.getElementById("frankate");
+				localStorage["shortcut_frankate"] = frankate.value;
+				// Update status to let user know options were saved.
+				var status = document.getElementById("status");
+				status.innerHTML = "Options Saved.";
+				setTimeout(function() {status.innerHTML = "";}, 750);
+			}
+
+			// Restores select box state to saved value from localStorage.
+			function restore_options() {
+				var frankate_value = localStorage["shortcut_frankate"];
+				if (!frankate_value) {
+					return;
+				}
+				var frankate = document.getElementById("frankate");
+				frankate.value = frankate_value;
+			}
+
+		</script>
+	</head>
+	<body onload="restore_options()">
+		<div id="status"></div>
+		<h2>Shortcuts</h2>
+		Frankate Selection: <input type="text" name="frankate" id="frankate" value="Ctrl+F"><br>
+		<h2>Advanced</h2>
+		Translation style: <input type="text" name="style" id="style" value="color: #292;"><br>
+		<button onclick="save_options()">Save</button>
+	</body>
+</html>
