@@ -6,16 +6,14 @@
 		<script type="text/javascript">
 			google.load("language", "1");
 			var srcText;
-			var langSrc = "auto";
-			var langDst = "en"; //safari.extension.settings.lang_dst;
 			var frankerPort;
 			function translateCallBack(result) {
-				//safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelectionResponse", result.translation);
 				frankerPort.postMessage({name:"frankateSelectionResponse", message:result.translation});
 			}
 			function respondToMessage(theMessageEvent) {
-				//var activeTab = safari.application.activeBrowserWindow.activeTab;
 		    	if(theMessageEvent.name === "frankateSelectionRequest") {
+					var langSrc = localStorage["langSrc"];
+					var langDst = localStorage["langDst"];
 					srcText = theMessageEvent.message;
 					//langDst = safari.extension.settings.lang_dst;
 					if (langSrc == "auto") {
@@ -23,12 +21,12 @@
 					} else {
 						google.language.translate(srcText, langSrc, langDst, translateCallBack);
 					}
-				// } else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
-				// 	activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
-				// } else if (theMessageEvent.name === "shortcutFrankateCleanRequest") {
-				// 	activeTab.page.dispatchMessage("shortcutFrankateCleanValue", safari.extension.settings.shortcut_frankate_clean);
-				// } else if (theMessageEvent.name === "styleDestinationRequest") {
-				// 	activeTab.page.dispatchMessage("styleDestinationValue", safari.extension.settings.style_dst);
+				} else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
+					frankerPort.postMessage({name:"shortcutFrankateSelectionValue", message:localStorage["shortcutFrankate"]});
+				} else if (theMessageEvent.name === "shortcutFrankateCleanRequest") {
+					frankerPort.postMessage({name:"shortcutFrankateCleanValue", message:localStorage["shortcutClean"]});
+				} else if (theMessageEvent.name === "styleDestinationRequest") {
+					frankerPort.postMessage({name:"styleDestinationValue", message:localStorage["style"]});
 				}
 			}
 			
@@ -38,7 +36,6 @@
 			  console.assert(port.name == "Franker");
 			  port.onMessage.addListener(respondToMessage);
 			});
-			//safari.application.addEventListener("message", respondToMessage, false);
 		</script>
 	</head>
 	<body>
