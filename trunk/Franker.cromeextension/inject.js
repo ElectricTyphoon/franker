@@ -3,18 +3,15 @@ var frankerUserStyle = "";
 // ==== Message Management ====
 
 function frankerInjectHandleMessage(msgEvent) {
-	// if (msgEvent.name == "frankateSelection") {
-	// 	frankerInjectFrankate();
-	// } else 
 	if (msgEvent.name == "frankateSelectionResponse") {
 		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle);
 		frankerInjectTranslateNextSentence();
-	// } else if (msgEvent.name == "shortcutFrankateSelectionValue") {
-	// 	frankerInjectSetShortcut(msgEvent, frankerInjectFrankate);
-	// } else if (msgEvent.name == "shortcutFrankateCleanValue") {
-	// 	frankerInjectSetShortcut(msgEvent, frankerInjectClean);
-	// } else if (msgEvent.name == "styleDestinationValue") {
-	// 	frankerUserStyle = msgEvent.message;
+	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
+		frankerInjectSetShortcut(msgEvent.message, frankerInjectFrankate);
+	} else if (msgEvent.name == "shortcutFrankateCleanValue") {
+		frankerInjectSetShortcut(msgEvent.message, frankerInjectClean);
+	} else if (msgEvent.name == "styleDestinationValue") {
+		frankerUserStyle = msgEvent.message;
 	}
 }
 
@@ -22,10 +19,6 @@ function frankerInjectHandleMessage(msgEvent) {
 // ==== Shortcuts ====
 
 function frankerInjectSetShortcut(str, func) {
-	// var values = msgEvent.message.split(":");
-	// if (values.length > 1) {
-	// 	shortcut.remove(values[1]);
-	// }
 	shortcut.remove(str); // must remove first to ensure we do not duplicate the shortcut
 	shortcut.add(str, func, {
 			'type':'keydown',
@@ -37,6 +30,7 @@ function frankerInjectSetShortcut(str, func) {
 
 function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
+		frankerInjectInitPort();
 		frankerInjectTranslateNextSentence();
 	} else {
 		alert('Frankate failed, select a block of text first!');
@@ -51,7 +45,6 @@ function frankerInjectTranslateNextSentence() {
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
 	}
-	//safari.self.tab.dispatchMessage("frankateSelectionRequest", srcText);
 	frankerPort.postMessage({name:"frankateSelectionRequest", message:srcText});
 }
 
@@ -60,15 +53,14 @@ function frankerInjectClean() {
 }
 
 // ==== Initial ====
+var frankerPort;
+function frankerInjectInitPort() {
+	frankerPort = chrome.extension.connect({name: "Franker"});
+	frankerPort.onMessage.addListener(frankerInjectHandleMessage);
+}
 
-frankerInjectSetShortcut("Ctrl+F", frankerInjectFrankate);
+frankerInjectInitPort();
 
-var frankerPort = chrome.extension.connect({name: "Franker"});
-//port.postMessage({joke: "Knock knock"});
-frankerPort.onMessage.addListener(frankerInjectHandleMessage);
-
-//safari.self.addEventListener("message", frankerInjectHandleMessage, false);
-
-//safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
-//safari.self.tab.dispatchMessage("shortcutFrankateCleanRequest", "");
-//safari.self.tab.dispatchMessage("styleDestinationRequest", "");
+frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
+frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
+frankerPort.postMessage({name: "styleDestinationRequest"});
