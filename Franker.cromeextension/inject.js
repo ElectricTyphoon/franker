@@ -41,6 +41,7 @@ function frankerInjectTranslateNextSentence() {
 	var srcText = "";
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
+			frankerPort.disconnect();
 			return;
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
