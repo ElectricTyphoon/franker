@@ -52,6 +52,7 @@
 			<string>Italian</string>
 			<string>Japanese</string>
 			<string>Korean</string>
+			<string>Latin</string>
 			<string>Latvian</string>
 			<string>Lithuanian</string>
 			<string>Macedonian</string>
@@ -116,6 +117,7 @@
 			<string>it</string>
 			<string>ja</string>
 			<string>ko</string>
+			<string>la</string>
 			<string>lv</string>
 			<string>lt</string>
 			<string>mk</string>
@@ -185,6 +187,7 @@
 			<string>Italian</string>
 			<string>Japanese</string>
 			<string>Korean</string>
+			<string>Latin</string>
 			<string>Latvian</string>
 			<string>Lithuanian</string>
 			<string>Macedonian</string>
@@ -248,6 +251,7 @@
 			<string>it</string>
 			<string>ja</string>
 			<string>ko</string>
+			<string>la</string>
 			<string>lv</string>
 			<string>lt</string>
 			<string>mk</string>
