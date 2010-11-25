@@ -3,17 +3,43 @@ var frankerUserStyle;
 // ==== Message Management ====
 
 function frankerInjectHandleMessage(msgEvent) {
-	if (msgEvent.name == "frankateSelection") {
-		frankerInjectFrankate();
-	} else if (msgEvent.name == "frankateSelectionResponse") {
-		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle);
-		frankerInjectTranslateNextSentence();
-	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
-		frankerInjectSetShortcut(msgEvent, frankerInjectFrankate);
-	} else if (msgEvent.name == "shortcutFrankateCleanValue") {
-		frankerInjectSetShortcut(msgEvent, frankerInjectClean);
-	} else if (msgEvent.name == "styleDestinationValue") {
-		frankerUserStyle = msgEvent.message;
+	switch (msgEvent.name) {
+		// main (frankate selection)
+		case "frankateSelection":
+			frankerInjectFrankate();
+			break;
+		case "frankateSelectionResponse":
+			if (msgEvent.message.length == 0) {
+				alert('Franker error: No translation received.\nEither autodetect failed or Google Translate does not support this language pair.');
+				return;
+			}
+			frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle);
+			frankerInjectTranslateNextSentence();
+			break;
+
+		// settings (shortcuts and style)
+		case "shortcutFrankateSelectionValue":
+			frankerInjectSetShortcut(msgEvent, frankerInjectFrankate);
+			break;
+		case "shortcutFrankateClearValue":
+			frankerInjectSetShortcut(msgEvent, frankerInjectClear);
+			break;
+		case "styleDestinationValue":
+			frankerUserStyle = msgEvent.message;
+			break;
+
+		// extra (frankate page)
+		case "frankatePage":
+			frankerInjectFrankatePage();
+			break;
+		case "shortcutFrankatePageValue":
+			frankerInjectSetShortcut(msgEvent, frankerInjectFrankatePage);
+			break;
+		case "statePageEnabledValue":
+			if (msgEvent.message == true && document.location.href.indexOf("translate.googleusercontent.com", 0) >= 0) {
+				frankerInjectTransformGoogleTranslationBlocks();
+			}
+			break;
 	}
 }
 
@@ -38,7 +64,7 @@ function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
 		frankerInjectTranslateNextSentence();
 	} else {
-		alert('Frankate failed, select a block of text first!');
+		alert('Franker error: No text selected.\nPlease, select text and try again.');
 	}
 }
 
@@ -53,8 +79,63 @@ function frankerInjectTranslateNextSentence() {
 	safari.self.tab.dispatchMessage("frankateSelectionRequest", srcText);
 }
 
-function frankerInjectClean() {
+function frankerInjectClear() {
 	frankerCoreClean(document);
+}
+
+
+// ==== Extra ====
+
+function frankerInjectFrankatePage() {
+	safari.self.tab.dispatchMessage("frankatePageRequest", "");
+}
+
+function frankerInjectTransformGoogleTranslationBlocks() {
+	var spans = document.getElementsByTagName('span');
+	var i;
+	for (i = 0; i < spans.length; i++) {
+		if (spans[i].getAttribute('onmouseover')) {
+			var dstSpan = spans[i];
+			var srcSpan = spans[i+1];
+			dstSpan.removeAttribute('style');
+			dstSpan.setAttribute('class', 'franker-dst-text');
+			dstSpan.setAttribute("style", frankerUserStyle);
+			
+			dstSpan.removeAttribute('onmouseover');
+			spans[i].removeAttribute('onmouseout');
+			//dstSpan.setAttribute('onclick', '_tipon(this)');
+
+
+			//// moving the source text's span out of the current span (not required now)
+			dstSpan.parentNode.insertBefore(srcSpan, dstSpan);
+			//spans[i].removeChild(spans[i+1]);
+			
+			// wrapping current sentence in para (separate sentences)
+			//var separator = document.createElement('p');
+			//spans[i].parentNode.insertBefore(separator,spans[i]);
+			//separator.appendChild(spans[i]);
+			
+			//// alternative separation strategies
+			//var separator0 = document.createElement('br');
+			//spans[i].parentNode.insertBefore(separator0,spans[i]);
+			//var separator1 = document.createElement('br');
+			//spans[i].parentNode.insertBefore(separator1,spans[i]);
+			
+			//// uncomment you if want original and translated text to be separated by linefeed
+			//var separator2 = document.createElement('br');
+			//spans[i].insertBefore(separator2,spans[i+1].nextSibling);
+			
+			var left = document.createTextNode('(');
+			var right = document.createTextNode(')');
+			//dstSpan.insertBefore(left, dstSpan.firstChild.nextSibling);
+			dstSpan.insertBefore(left, dstSpan.firstChild);
+			dstSpan.appendChild(right);
+			
+		}
+		if (spans[i].className == "google-src-text") {
+		 	spans[i].style.display = "inline !important";
+		}
+	}
 }
 
 // ==== Initial ====
@@ -62,5 +143,8 @@ function frankerInjectClean() {
 safari.self.addEventListener("message", frankerInjectHandleMessage, false);
 
 safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
-safari.self.tab.dispatchMessage("shortcutFrankateCleanRequest", "");
+safari.self.tab.dispatchMessage("shortcutFrankateClearRequest", "");
 safari.self.tab.dispatchMessage("styleDestinationRequest", "");
+
+safari.self.tab.dispatchMessage("shortcutFrankatePageRequest", "");
+safari.self.tab.dispatchMessage("statePageEnabledRequest", "");

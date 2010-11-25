@@ -33,19 +33,35 @@
 		<array>
 			<dict>
 				<key>Command</key>
-				<string>frankate_selection</string>
+				<string>frankate_page</string>
 				<key>Identifier</key>
-				<string>toolbar_frankate</string>
+				<string>toolbar_frankate_page</string>
 				<key>Image</key>
 				<string>Toolbar.png</string>
 				<key>Include By Default</key>
 				<false/>
 				<key>Label</key>
-				<string>Frankate</string>
+				<string>Frankate Page</string>
 				<key>Palette Label</key>
-				<string>Frankate</string>
+				<string>Frankate Page</string>
 				<key>Tool Tip</key>
-				<string>Frankates selection</string>
+				<string>Frankates Page</string>
+			</dict>
+			<dict>
+				<key>Command</key>
+				<string>frankate_selection</string>
+				<key>Identifier</key>
+				<string>toolbar_franakate_selection</string>
+				<key>Image</key>
+				<string>FrankateSelection.png</string>
+				<key>Include By Default</key>
+				<false/>
+				<key>Label</key>
+				<string>Frankate Selection</string>
+				<key>Palette Label</key>
+				<string>Frankate Selection</string>
+				<key>Tool Tip</key>
+				<string>Frankate Selection</string>
 			</dict>
 		</array>
 	</dict>

@@ -294,7 +294,7 @@
 		<key>Key</key>
 		<string>shortcut_frankate_selection</string>
 		<key>Title</key>
-		<string>Frankate</string>
+		<string>Frankate Selection</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
@@ -302,11 +302,31 @@
 		<key>DefaultValue</key>
 		<string>Ctrl+Shift+F</string>
 		<key>Key</key>
-		<string>shortcut_frankate_clean</string>
+		<string>shortcut_frankate_clear</string>
 		<key>Title</key>
-		<string>Clean</string>
+		<string>Clear Page</string>
 		<key>Type</key>
 		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>Ctrl+Alt+F</string>
+		<key>Key</key>
+		<string>shortcut_frankate_page</string>
+		<key>Title</key>
+		<string>Translate Page</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>state_frankate_page</string>
+		<key>Title</key>
+		<string>and inline bubbles</string>
+		<key>Type</key>
+		<string>CheckBox</string>
 	</dict>
 	<dict>
 		<key>Title</key>
