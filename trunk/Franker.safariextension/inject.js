@@ -97,40 +97,13 @@ function frankerInjectTransformGoogleTranslationBlocks() {
 		if (spans[i].getAttribute('onmouseover')) {
 			var dstSpan = spans[i];
 			var srcSpan = spans[i+1];
-			dstSpan.removeAttribute('style');
 			dstSpan.setAttribute('class', 'franker-dst-text');
 			dstSpan.setAttribute("style", frankerUserStyle);
-			
 			dstSpan.removeAttribute('onmouseover');
-			spans[i].removeAttribute('onmouseout');
-			//dstSpan.setAttribute('onclick', '_tipon(this)');
-
-
-			//// moving the source text's span out of the current span (not required now)
+			dstSpan.removeAttribute('onmouseout');
+			// moving the source text's span out of the current span (not required now)
 			dstSpan.parentNode.insertBefore(srcSpan, dstSpan);
-			//spans[i].removeChild(spans[i+1]);
-			
-			// wrapping current sentence in para (separate sentences)
-			//var separator = document.createElement('p');
-			//spans[i].parentNode.insertBefore(separator,spans[i]);
-			//separator.appendChild(spans[i]);
-			
-			//// alternative separation strategies
-			//var separator0 = document.createElement('br');
-			//spans[i].parentNode.insertBefore(separator0,spans[i]);
-			//var separator1 = document.createElement('br');
-			//spans[i].parentNode.insertBefore(separator1,spans[i]);
-			
-			//// uncomment you if want original and translated text to be separated by linefeed
-			//var separator2 = document.createElement('br');
-			//spans[i].insertBefore(separator2,spans[i+1].nextSibling);
-			
-			var left = document.createTextNode('(');
-			var right = document.createTextNode(')');
-			//dstSpan.insertBefore(left, dstSpan.firstChild.nextSibling);
-			dstSpan.insertBefore(left, dstSpan.firstChild);
-			dstSpan.appendChild(right);
-			
+			dstSpan.textContent = ' (' + dstSpan.textContent.replace(/^\s*/, "").replace(/\s*$/, "") + ') '; 
 		}
 		if (spans[i].className == "google-src-text") {
 		 	spans[i].style.display = "inline !important";
