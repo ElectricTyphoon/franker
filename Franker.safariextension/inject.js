@@ -63,7 +63,7 @@ function frankerInjectSetShortcut(msgEvent, func) {
 function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
 		frankerInjectTranslateNextSentence();
-	} else {
+	} else if (window == window.top) {
 		alert('Franker error: No text selected.\nPlease, select text and try again.');
 	}
 }
