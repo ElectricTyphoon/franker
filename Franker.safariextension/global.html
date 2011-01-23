@@ -4,29 +4,31 @@
 		<script type="text/javascript" src="http://www.google.com/jsapi">
 	    </script>
 		<script type="text/javascript">
-			function performCommand(event) {
-				if (event.command === "frankate_selection") {
-					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelection", "");
-				}
-				if (event.command === "frankate_page") {
-					safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankatePage", "");
-				}
-			}
-			safari.application.addEventListener("command", performCommand, false);
+			google.load("language", "1");
 		</script>
 		<script type="text/javascript">
-			google.load("language", "1");
-			var srcText;
-			var langDst = safari.extension.settings.lang_dst;
+			// broadcasts a message to all pages, used to propagate the settings (see issue #7)
+			function broadcastMessage(name, payload) {
+				for (var w = 0; w < safari.application.browserWindows.length; w++) {
+					for (var t = 0; t < safari.application.browserWindows[w].tabs.length; t++) {
+						safari.application.browserWindows[w].tabs[t].page.dispatchMessage(name, payload);
+					}
+				}
+			}
+			// sends a message to active page
+			function sendMessage(name, payload) {
+				safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(name, payload);
+			}
+		</script>
+		<script type="text/javascript">
 			function translateCallBack(result) {
-				safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("frankateSelectionResponse", result.translation);
+				sendMessage("frankateSelectionResponse", result.translation);
 			}
 			function respondToMessage(theMessageEvent) {
-				var activeTab = safari.application.activeBrowserWindow.activeTab;
 				switch (theMessageEvent.name) {
 					case "frankateSelectionRequest":
-						srcText = theMessageEvent.message;
-						langDst = safari.extension.settings.lang_dst;
+						var srcText = theMessageEvent.message;
+						var langDst = safari.extension.settings.lang_dst;
 						if (safari.extension.settings.lang_src == "auto") {
 							google.language.translate(srcText, "", langDst, translateCallBack);
 						} else {
@@ -36,13 +38,13 @@
 					
 					// settings
 					case "shortcutFrankateSelectionRequest":
-						activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
+						broadcastMessage("shortcutFrankateSelectionValue", safari.extension.settings.shortcut_frankate_selection);
 						break;
 					case "shortcutFrankateClearRequest":
-						activeTab.page.dispatchMessage("shortcutFrankateClearValue", safari.extension.settings.shortcut_frankate_clear);
+						broadcastMessage("shortcutFrankateClearValue", safari.extension.settings.shortcut_frankate_clear);
 						break;
 					case "styleDestinationRequest":
-						activeTab.page.dispatchMessage("styleDestinationValue", safari.extension.settings.style_dst);
+						broadcastMessage("styleDestinationValue", safari.extension.settings.style_dst);
 						break;
 
 					// extra
@@ -52,31 +54,43 @@
 							langSrc = "" // means "detect language"
 						}
 						var langDst=safari.extension.settings.lang_dst;
-						activeTab.url = 'http://translate.google.com/translate?u='+escape(safari.application.activeBrowserWindow.activeTab.url)+'&hl='+langDst+'&ie=UTF-8&sl='+langSrc+'&tl='+langDst
+						var activeTab = safari.application.activeBrowserWindow.activeTab;
+						activeTab.url = 'http://translate.google.com/translate?u='+escape(activeTab.url)+'&hl='+langDst+'&ie=UTF-8&sl='+langSrc+'&tl='+langDst
 						break;
 					case "shortcutFrankatePageRequest":
-						activeTab.page.dispatchMessage("shortcutFrankatePageValue", safari.extension.settings.shortcut_frankate_page);
+						broadcastMessage("shortcutFrankatePageValue", safari.extension.settings.shortcut_frankate_page);
 						break;
 					case "statePageEnabledRequest":
-						activeTab.page.dispatchMessage("statePageEnabledValue", safari.extension.settings.state_frankate_page);
+						sendMessage("statePageEnabledValue", safari.extension.settings.state_frankate_page);
 						break;
 				}
 			}
 			safari.application.addEventListener("message", respondToMessage, false);
 		</script>
+		<!-- Context menu and toolbar buttons watcher -->
+		<script type="text/javascript">
+			function performCommand(event) {
+				if (event.command === "frankate_selection") {
+					sendMessage("frankateSelection", "");
+				}
+				if (event.command === "frankate_page") {
+					sendMessage("frankatePage", "");
+				}
+			}
+			safari.application.addEventListener("command", performCommand, false);
+		</script>
 		<!-- Settings change watcher -->
 		<script>
 			function settingsChanged(event) {
-				var activeTab = safari.application.activeBrowserWindow.activeTab;
 				switch (event.key) {
 					case "shortcut_frankate_selection":
-						activeTab.page.dispatchMessage("shortcutFrankateSelectionValue", event.newValue + ":" + event.oldValue);
+						broadcastMessage("shortcutFrankateSelectionValue", event.newValue + ":" + event.oldValue);
 						break;
 					case "shortcut_frankate_clear":
-						activeTab.page.dispatchMessage("shortcutFrankateClearValue", event.newValue + ":" + event.oldValue);
+						broadcastMessage("shortcutFrankateClearValue", event.newValue + ":" + event.oldValue);
 						break;
 					case "shortcut_frankate_page":
-						activeTab.page.dispatchMessage("shortcutFrankatePageValue", event.newValue + ":" + event.oldValue);
+						broadcastMessage("shortcutFrankatePageValue", event.newValue + ":" + event.oldValue);
 						break;
 				}
 			}
