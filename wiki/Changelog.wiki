@@ -18,6 +18,6 @@
 
 = Chrome Extension =
 
-== 1.0.2 ==
+== 1.0.2 (2010-10-21) ==
  * First release, very basic functionality
  * Listed on Google's Chrome Extension Gallery
