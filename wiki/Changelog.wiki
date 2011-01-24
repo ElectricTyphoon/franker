@@ -13,7 +13,8 @@
  * Sentence iteration algorithm was re-written, better work with selected text
 
 == 0.9.0 ==
- * First usable release, listed on Apple's Safari Extensions Gallery
+ * First usable release
+ * Listed on Apple's Safari Extensions Gallery
 
 
 = Chrome Extension =
