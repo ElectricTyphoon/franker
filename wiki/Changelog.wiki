@@ -4,10 +4,10 @@
 == 1.0.2 (2011-01-24) ==
  * Fixed keyboard shortcuts not initialized on tabs if opened on background
 
-== 1.0.1 ==
+== 1.0.1 (2010-12-30) ==
  * Fixed 'Franker error' alert on multi-frame sites
 
-== 1.0.0 ==
+== 1.0.0 (2010-12-25) ==
  * First stable release
  * Core extracted to be shared between browser extensions and iPhone app
  * Sentence iteration algorithm was re-written, better work with selected text
