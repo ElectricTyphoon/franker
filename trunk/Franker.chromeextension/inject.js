@@ -1,10 +1,12 @@
 var frankerUserStyle = "";
+var frankerReverse = false;
+var frankerBrackets = true;
 
 // ==== Message Management ====
 
 function frankerInjectHandleMessage(msgEvent) {
 	if (msgEvent.name == "frankateSelectionResponse") {
-		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle);
+		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerReverse, frankerBrackets);
 		frankerInjectTranslateNextSentence();
 	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
 		frankerInjectSetShortcut(msgEvent.message, frankerInjectFrankate);
@@ -12,6 +14,10 @@ function frankerInjectHandleMessage(msgEvent) {
 		frankerInjectSetShortcut(msgEvent.message, frankerInjectClean);
 	} else if (msgEvent.name == "styleDestinationValue") {
 		frankerUserStyle = msgEvent.message;
+	} else if (msgEvent.name == "reverseValue") {
+		frankerReverse = (msgEvent.message == "true");
+	} else if (msgEvent.name == "bracketsValue") {
+		frankerBrackets = (msgEvent.message == "true");
 	}
 }
 
@@ -32,7 +38,7 @@ function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
 		frankerInjectInitPort();
 		frankerInjectTranslateNextSentence();
-	} else {
+	} else if (window == window.top) {
 		alert('Frankate failed, select a block of text first!');
 	}
 }
@@ -65,3 +71,5 @@ frankerInjectInitPort();
 frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
 frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
 frankerPort.postMessage({name: "styleDestinationRequest"});
+frankerPort.postMessage({name: "reverseRequest"});
+frankerPort.postMessage({name: "bracketsRequest"});
