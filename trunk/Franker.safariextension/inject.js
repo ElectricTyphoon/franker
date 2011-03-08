@@ -1,4 +1,6 @@
 var frankerUserStyle;
+var frankerReverse = false;
+var frankerBrackets = true;
 
 // ==== Message Management ====
 
@@ -13,7 +15,7 @@ function frankerInjectHandleMessage(msgEvent) {
 				alert('Franker error: No translation received.\nEither autodetect failed or Google Translate does not support this language pair.');
 				return;
 			}
-			frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle);
+			frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerReverse, frankerBrackets);
 			frankerInjectTranslateNextSentence();
 			break;
 
@@ -26,6 +28,12 @@ function frankerInjectHandleMessage(msgEvent) {
 			break;
 		case "styleDestinationValue":
 			frankerUserStyle = msgEvent.message;
+			break;
+		case "reverseValue":
+			frankerReverse = msgEvent.message;
+			break;
+		case "bracketsValue":
+			frankerBrackets = msgEvent.message;
 			break;
 
 		// extra (frankate page)
@@ -118,6 +126,8 @@ safari.self.addEventListener("message", frankerInjectHandleMessage, false);
 safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
 safari.self.tab.dispatchMessage("shortcutFrankateClearRequest", "");
 safari.self.tab.dispatchMessage("styleDestinationRequest", "");
+safari.self.tab.dispatchMessage("reverseRequest", "");
+safari.self.tab.dispatchMessage("bracketsRequest", "");
 
 safari.self.tab.dispatchMessage("shortcutFrankatePageRequest", "");
 safari.self.tab.dispatchMessage("statePageEnabledRequest", "");

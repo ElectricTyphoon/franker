@@ -1,3 +1,8 @@
+// Franker core library
+// 
+// Version: 1.1.0
+// Author: Yurii Soldak (http://franker.googlecode.com)
+
 // initializes franker variables, remembers user selection bounds.
 // call once at the very begining.
 // returns 0 on success, -1 otherwise (means 'nothing selected')
@@ -53,12 +58,18 @@ function frankerCoreSelectNextSentence(doc) {
 }
 
 // injects a block of text (translation) directly after current selection (original text)
+// alternatively (if reverse = true) translation is injected before original
+// translation can be optionally surrounded by brackets
 // call after frankerCoreSelectNextSentence() + frankerCoreGetSelectedText()
 // returns 0 always
-function frankerCoreInjectTranslation(doc, translation, style) {
+function frankerCoreInjectTranslation(doc, translation, style, reverse, brackets) {
 	var cleanText = translation.replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
 	cleanText = cleanText.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
-	var translationText = doc.createTextNode(" (" + cleanText + ") ");
+	
+	var originalNode = doc.createElement("franker");
+	originalNode.setAttribute("class", "franker-src-text");
+	
+	var translationText = brackets ? doc.createTextNode(" (" + cleanText + ") ") : doc.createTextNode(" " + cleanText + " ");
 	var translationNode = doc.createElement("franker");
 	translationNode.setAttribute("class", "franker-dst-text");
 	if (style != '') {
@@ -67,14 +78,23 @@ function frankerCoreInjectTranslation(doc, translation, style) {
 	translationNode.appendChild(translationText);
 	
 	var selection = doc.getSelection();
-	selection.collapseToEnd();
+	frankerUtilTrimSelection(selection);
+	if (reverse) {
+		selection.getRangeAt(0).surroundContents(originalNode);
+	} else {
+		selection.collapseToEnd();
+	}
 	selection.getRangeAt(0).insertNode(translationNode);
 	selection.removeAllRanges();
-
+	
 	var newRange = document.createRange();
-	newRange.selectNode(translationNode);
+	if (reverse) {
+		newRange.selectNode(originalNode);
+	} else {
+		newRange.selectNode(translationNode);
+	}
 	selection.addRange(newRange);
-
+	
 	frankerUtilExpandSelection(selection); // includes trailing whitespaces into the selection
 	selection.collapseToEnd();
 	

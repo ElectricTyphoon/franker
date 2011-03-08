@@ -330,7 +330,7 @@
 	</dict>
 	<dict>
 		<key>Title</key>
-		<string>Styles</string>
+		<string>Translated text</string>
 		<key>Type</key>
 		<string>Group</string>
 	</dict>
@@ -340,9 +340,39 @@
 		<key>Key</key>
 		<string>style_dst</string>
 		<key>Title</key>
-		<string>Translated text</string>
+		<string>Style</string>
 		<key>Type</key>
 		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>brackets</string>
+		<key>Title</key>
+		<string>Surround by brackets     </string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>reverse</string>
+		<key>Title</key>
+		<string>Inject</string>
+		<key>Titles</key>
+		<array>
+			<string>Before original</string>
+			<string>After original</string>
+		</array>
+		<key>Type</key>
+		<string>RadioButtons</string>
+		<key>Values</key>
+		<array>
+			<true/>
+			<false/>
+		</array>
 	</dict>
 </array>
 </plist>
