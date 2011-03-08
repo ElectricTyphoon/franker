@@ -66,10 +66,14 @@ function frankerCoreInjectTranslation(doc, translation, style, reverse, brackets
 	var cleanText = translation.replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
 	cleanText = cleanText.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
 	
-	var originalNode = doc.createElement("franker");
-	originalNode.setAttribute("class", "franker-src-text");
-	
-	var translationText = brackets ? doc.createTextNode(" (" + cleanText + ") ") : doc.createTextNode(" " + cleanText + " ");
+	var translationText;
+	if (brackets) {
+		translationText = doc.createTextNode(" (" + cleanText + ") ");
+	} else if (reverse) {
+		translationText = doc.createTextNode(cleanText + " ");
+	} else {
+		translationText = doc.createTextNode(" " + cleanText);
+	}
 	var translationNode = doc.createElement("franker");
 	translationNode.setAttribute("class", "franker-dst-text");
 	if (style != '') {
@@ -80,20 +84,18 @@ function frankerCoreInjectTranslation(doc, translation, style, reverse, brackets
 	var selection = doc.getSelection();
 	frankerUtilTrimSelection(selection);
 	if (reverse) {
-		selection.getRangeAt(0).surroundContents(originalNode);
+		var origRange = selection.getRangeAt(0);
+		selection.getRangeAt(0).insertNode(translationNode);
+		selection.removeAllRanges();
+		selection.addRange(origRange);
 	} else {
 		selection.collapseToEnd();
-	}
-	selection.getRangeAt(0).insertNode(translationNode);
-	selection.removeAllRanges();
-	
-	var newRange = document.createRange();
-	if (reverse) {
-		newRange.selectNode(originalNode);
-	} else {
+		selection.getRangeAt(0).insertNode(translationNode);
+		selection.removeAllRanges();
+		var newRange = document.createRange();
 		newRange.selectNode(translationNode);
+		selection.addRange(newRange);
 	}
-	selection.addRange(newRange);
 	
 	frankerUtilExpandSelection(selection); // includes trailing whitespaces into the selection
 	selection.collapseToEnd();
