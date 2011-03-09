@@ -1,12 +1,12 @@
 var frankerUserStyle = "";
-var frankerReverse = false;
-var frankerBrackets = true;
+var frankerInjectBefore = false;
+var frankerInjectBrackets = true;
 
 // ==== Message Management ====
 
 function frankerInjectHandleMessage(msgEvent) {
 	if (msgEvent.name == "frankateSelectionResponse") {
-		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerReverse, frankerBrackets);
+		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerInjectBefore, frankerInjectBrackets);
 		frankerInjectTranslateNextSentence();
 	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
 		frankerInjectSetShortcut(msgEvent.message, frankerInjectFrankate);
@@ -14,10 +14,10 @@ function frankerInjectHandleMessage(msgEvent) {
 		frankerInjectSetShortcut(msgEvent.message, frankerInjectClean);
 	} else if (msgEvent.name == "styleDestinationValue") {
 		frankerUserStyle = msgEvent.message;
-	} else if (msgEvent.name == "reverseValue") {
-		frankerReverse = (msgEvent.message == "true");
-	} else if (msgEvent.name == "bracketsValue") {
-		frankerBrackets = (msgEvent.message == "true");
+	} else if (msgEvent.name == "injectBeforeValue") {
+		frankerInjectBefore = (msgEvent.message == "true");
+	} else if (msgEvent.name == "injectBracketsValue") {
+		frankerInjectBrackets = (msgEvent.message == "true");
 	}
 }
 
@@ -71,5 +71,5 @@ frankerInjectInitPort();
 frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
 frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
 frankerPort.postMessage({name: "styleDestinationRequest"});
-frankerPort.postMessage({name: "reverseRequest"});
-frankerPort.postMessage({name: "bracketsRequest"});
+frankerPort.postMessage({name: "injectBeforeRequest"});
+frankerPort.postMessage({name: "injectBracketsRequest"});

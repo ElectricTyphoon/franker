@@ -11,8 +11,8 @@
 				save_option("frankate", "shortcutFrankate");
 				save_option("clean",    "shortcutClean");
 				save_option("style",    "style");
-				save_option("reverse",  "reverse");
-				save_option("brackets", "brackets");
+				save_option("inject_before",   "inject_before");
+				save_option("inject_brackets", "inject_brackets");
 				var status = document.getElementById("status");
 				status.style.display = "block";
 				setTimeout(function() {status.style.display = "none";}, 1750);
@@ -22,7 +22,7 @@
 				var elem = document.getElementById(id);
 				if (id == "langSrc" || id == "langDst") {
 					localStorage[name] = elem.children[elem.selectedIndex].value;
-				} else if (id == "reverse" || id == "brackets") {
+				} else if (id == "inject_before" || id == "inject_brackets") {
 					localStorage[name] = elem.checked+"";
 				} else {
 					localStorage[name] = elem.value;
@@ -36,8 +36,8 @@
 				load_option("frankate", "shortcutFrankate");
 				load_option("clean",    "shortcutClean");
 				load_option("style",    "style");
-				load_option("reverse",  "reverse");
-				load_option("brackets", "brackets");
+				load_option("inject_before",   "inject_before");
+				load_option("inject_brackets", "inject_brackets");
 			}
 			
 			function load_option(id, name) {
@@ -54,7 +54,7 @@
 							break;
 						}
 					}
-				} else if (id == "reverse" || id == "brackets") {
+				} else if (id == "inject_before" || id == "inject_brackets") {
 					elem.checked = (value == "true");
 				} else {
 					elem.value = value;
@@ -118,16 +118,16 @@
 		</fieldset>
 		
 		<fieldset>
-			<legend>Translation</legend>
-			<label for="style">Custom style:</label> <input type="text" name="style" id="style" value="color: #292;" onchange="save_options();"><br>
-			<label for="brackets">Wrap in brackets:</label> <input type="checkbox" name="brackets" id="brackets" checked="checked" onchange="save_options();" style="height: 1.5em;"><br>
-			<label for="reverse">Inject before original:</label><input type="checkbox" name="reverse" id="reverse" onchange="save_options();"><br>
+			<legend>Translated text</legend>
+			<label for="style">Style:</label> <input type="text" name="style" id="style" value="color: #292;" onchange="save_options();"><br>
+			<label for="inject_brackets">Surround by brackets:</label> <input type="checkbox" name="inject_brackets" id="inject_brackets" checked="checked" onchange="save_options();" style="height: 1.5em;"><br>
+			<label for="inject_before">Inject before original:</label><input type="checkbox" name="inject_before" id="inject_before" onchange="save_options();"><br>
 		</fieldset>
 
 		<div style="padding: 1em;">
 			<p>
-				This extension is for persons who study one or more languages and want to expand their vocabulary.<br>
-				Franker helps you learn new words and phrases by enabling sentence-to-sentence translation for web sites.
+				This extension is for persons who study one or more languages and want to expand their vocabulary.<br/>
+				Franker helps you learn new words and phrases in context, enabling sentence-to-sentence translation for web sites.<br/>
 				You simply read news and study language, <em>isn't that nice</em>?
 			</p>
 			<p>
@@ -150,7 +150,7 @@
 			</p>
 			<p>
 				<em>
-				Good luck and enjoy reading web sites on foreign languages!<br>
+				Good luck and enjoy reading web sites in foreign languages!<br>
 				Yurii Soldak: ysoldak.apps@gmail.com
 				</em>
 			</p>

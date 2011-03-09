@@ -7,8 +7,8 @@
 			if (!localStorage["shortcutFrankate"]) { localStorage["shortcutFrankate"] = "Ctrl+F" };
 			if (!localStorage["shortcutClean"]) { localStorage["shortcutClean"] = "Ctrl+Shift+F" };
 			if (!localStorage["style"]) { localStorage["style"] = "color: #292;" };
-			if (!localStorage["reverse"]) { localStorage["reverse"] = "false" };
-			if (!localStorage["brackets"]) { localStorage["brackets"] = "true" };
+			if (!localStorage["inject_before"]) { localStorage["inject_before"] = "false" };
+			if (!localStorage["inject_brackets"]) { localStorage["inject_brackets"] = "true" };
 	    </script>
 		<script type="text/javascript" src="http://www.google.com/jsapi">
 	    </script>
@@ -36,10 +36,10 @@
 					frankerPort.postMessage({name:"shortcutFrankateCleanValue", message:localStorage["shortcutClean"]});
 				} else if (theMessageEvent.name === "styleDestinationRequest") {
 					frankerPort.postMessage({name:"styleDestinationValue", message:localStorage["style"]});
-				} else if (theMessageEvent.name === "reverseRequest") {
-					frankerPort.postMessage({name:"reverseValue", message:localStorage["reverse"]});
-				} else if (theMessageEvent.name === "bracketsRequest") {
-					frankerPort.postMessage({name:"bracketsValue", message:localStorage["brackets"]});
+				} else if (theMessageEvent.name === "injectBeforeRequest") {
+					frankerPort.postMessage({name:"injectBeforeValue", message:localStorage["inject_before"]});
+				} else if (theMessageEvent.name === "injectBracketsRequest") {
+					frankerPort.postMessage({name:"injectBracketsValue", message:localStorage["inject_brackets"]});
 				}
 			}
 			

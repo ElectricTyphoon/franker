@@ -1,6 +1,6 @@
 {
   "name": "Franker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Expand your vocabulary by parallel reading web sites.",
   "update_url": "http://franker.googlecode.com/svn/trunk/update_chrome.xml",
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
