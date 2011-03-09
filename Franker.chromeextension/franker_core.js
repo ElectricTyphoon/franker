@@ -1,6 +1,6 @@
 // Franker core library
 // 
-// Version: 1.1.0
+// Version: 1.1.1
 // Author: Yurii Soldak (http://franker.googlecode.com)
 
 // initializes franker variables, remembers user selection bounds.
@@ -19,13 +19,21 @@ function frankerCoreInit(doc) {
 	selection.modify("extend", "forward", "sentence");
 	var boundaryCheck = doc.frankerUserRange.compareBoundaryPoints(Range.END_TO_END, selection.getRangeAt(0));
 	doc.frankerSimpleRange = (boundaryCheck <= 0);
-	if (doc.frankerSimpleRange) { // part of sentence, must revert
-		selection.removeAllRanges();
-		selection.addRange(doc.frankerUserRange.cloneRange());
-	} else {
+	
+	frankerCoreSelect(doc, doc.frankerUserRange, !doc.frankerSimpleRange);
+	
+	return 0;
+}
+
+// extracted solely for Franker for iPhone/iPad
+// used there to re-select the text after user interaction is disabled
+function frankerCoreSelect(doc, range, collapse) {
+	var selection = doc.getSelection();
+	selection.removeAllRanges();
+	selection.addRange(range.cloneRange());
+	if (collapse) {
 		selection.collapseToStart();
 	}
-	return 0;
 }
 
 // selects next sentence
@@ -58,18 +66,18 @@ function frankerCoreSelectNextSentence(doc) {
 }
 
 // injects a block of text (translation) directly after current selection (original text)
-// alternatively (if reverse = true) translation is injected before original
+// alternatively (before == true) translation is injected before original text
 // translation can be optionally surrounded by brackets
 // call after frankerCoreSelectNextSentence() + frankerCoreGetSelectedText()
 // returns 0 always
-function frankerCoreInjectTranslation(doc, translation, style, reverse, brackets) {
+function frankerCoreInjectTranslation(doc, translation, style, before, brackets) {
 	var cleanText = translation.replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
 	cleanText = cleanText.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
 	
 	var translationText;
 	if (brackets) {
 		translationText = doc.createTextNode(" (" + cleanText + ") ");
-	} else if (reverse) {
+	} else if (before) {
 		translationText = doc.createTextNode(cleanText + " ");
 	} else {
 		translationText = doc.createTextNode(" " + cleanText);
@@ -83,7 +91,7 @@ function frankerCoreInjectTranslation(doc, translation, style, reverse, brackets
 	
 	var selection = doc.getSelection();
 	frankerUtilTrimSelection(selection);
-	if (reverse) {
+	if (before) {
 		var origRange = selection.getRangeAt(0);
 		selection.getRangeAt(0).insertNode(translationNode);
 		selection.removeAllRanges();
