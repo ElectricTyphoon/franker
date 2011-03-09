@@ -1,6 +1,10 @@
 #labels Featured
 = Safari Extension =
 
+== 1.1.1 (2011-03-??) ==
+ * Brackets around translation are optional
+ * Translation can be injected before original text (after by default)
+
 == 1.0.2 (2011-01-24) ==
  * Fixed keyboard shortcuts not initialized on tabs if opened on background
 
@@ -18,6 +22,10 @@
 
 
 = Chrome Extension =
+
+== 1.1.1 (2011-03-09) ==
+ * Brackets around translation are optional
+ * Translation can be injected before original text (after by default)
 
 == 1.0.2 (2010-10-21) ==
  * First release, very basic functionality
