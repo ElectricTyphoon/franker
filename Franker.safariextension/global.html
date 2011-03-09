@@ -46,11 +46,11 @@
 					case "styleDestinationRequest":
 						broadcastMessage("styleDestinationValue", safari.extension.settings.style_dst);
 						break;
-					case "reverseRequest":
-						broadcastMessage("reverseValue", safari.extension.settings.reverse);
+					case "injectBeforeRequest":
+						broadcastMessage("injectBeforeValue", safari.extension.settings.inject_before);
 						break;
-					case "bracketsRequest":
-						broadcastMessage("bracketsValue", safari.extension.settings.brackets);
+					case "injectBracketsRequest":
+						broadcastMessage("injectBracketsValue", safari.extension.settings.inject_brackets);
 						break;
 
 					// extra
