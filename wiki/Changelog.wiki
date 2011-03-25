@@ -26,7 +26,7 @@
 
 = Chrome Extension =
 
-== 1.1.2 (2011-03-19) ==
+== 1.1.2 (2011-03-21) ==
  * Fixes error contacting the translation service.
 
 == 1.1.1 (2011-03-09) ==
