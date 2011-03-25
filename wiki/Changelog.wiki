@@ -1,6 +1,9 @@
 #labels Featured
 = Safari Extension =
 
+== 1.1.2 (2011-??-??) ==
+ * Fixes error contacting the translation service.
+
 == 1.1.1 (2011-03-14) ==
  * Brackets around translation are optional
  * Translation can be injected before original text (after by default)
@@ -22,6 +25,9 @@
 
 
 = Chrome Extension =
+
+== 1.1.2 (2011-03-19) ==
+ * Fixes error contacting the translation service.
 
 == 1.1.1 (2011-03-09) ==
  * Brackets around translation are optional
