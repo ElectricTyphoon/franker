@@ -1,0 +1,16 @@
+#summary Customer reviews for iOS app
+
+_iTunes Store shows customer reviews for app's last version only.<br/>
+I believe that is not fair for users who spent their time and wrote a review that nobody (except the developer) can see._
+
+*A translator's dream* 2011-03-24 by krothrock
+ Perfect for the student of any language. Useful even when already fluent, for particularly technical language.
+
+*A Must-Have for Learning a Foreign Language* 2011-03-23 by Toothius
+ I am an intermediate learner of Spanish, and finally got the point where I wanted to learn new vocabulary by reading books in Spanish rather than try to memorize lists of words. I used the "Frankate" plugin for Safari on my computer and found it extremely helpful for translating Spanish news. The plugin, like the app, hooks in to Google Translate, which does a darn good job of translating, especially colloquialisms and expressions where one-to-one word translation doesn't always work. 
+
+ When I decided to switch to ebook reading, I was disappointed with translating Spanish on the Kindle. Even after buying a decent Spanish-English dictionary for the Kindle, I'm limited to that one-word translation, which doesn't help with expressions and non-literal translations.
+
+ I was thrilled to find the Franker app, which I use with my iPhone. Now I find Spanish novels on the web and can translate on the go without being tied to my computer. The biggest complaint was that the app wouldn't run in the background and I kept losing my place. Now with the update to 3.1, that problem is solved. In addition, the app will now parse text to make it mobile formatted, and there's even a great text-to-speech feature for words I don't know how to pronounce.
+
+ All this for a buck? Unbelievable!
