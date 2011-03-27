@@ -4,9 +4,11 @@
 _iTunes Store shows customer reviews for app's last version only.<br/>
 I believe that is not fair for users who spent their time and wrote a review that nobody (except the developer) can see._
 
+=== 3.1 ===
 *A translator's dream* 2011-03-24 by krothrock
  Perfect for the student of any language. Useful even when already fluent, for particularly technical language.
 
+=== 3.0 ===
 *A Must-Have for Learning a Foreign Language* 2011-03-23 by Toothius
  I am an intermediate learner of Spanish, and finally got the point where I wanted to learn new vocabulary by reading books in Spanish rather than try to memorize lists of words. I used the "Frankate" plugin for Safari on my computer and found it extremely helpful for translating Spanish news. The plugin, like the app, hooks in to Google Translate, which does a darn good job of translating, especially colloquialisms and expressions where one-to-one word translation doesn't always work. 
 
@@ -21,5 +23,13 @@ I believe that is not fair for users who spent their time and wrote a review tha
  Ps: 
  My Favorits Sites are missing ...
 
+=== 2.0 ===
 *Brilliant for French* 2011-01-23 by Fizzicyst
  In-line translation eliminates need to switch back and forth to a dictionary, wonderful both for learning and reading reference paged in French. Word by word translation usually very good, especially on news sites like LeMonde's where journalistic sentence structure is relative straightforward. But conveys gist & vocabulary well even in more complex reading, sentence-by-sentence really improves comprehension. App is very nicely designed, intuitive and easy to use.
+
+*Better than a pop-up dictionary!* 2010-10-02 by rjtrudel
+ I'm using it to improve my Spanish reading and it functions fabulously. I used to cut and paste in openoffice and it was a pain trying to line up the text. If you download audio with transcripts you can use this to translate and then paste them into the lyrics section of iTunes. It gives literal translations using google translate, which results in a broken type English, but 99.9% of the time I know what it means since I already speak English. I really think it's better than a pop up dictionary because it's all right there. I just hope the developer will be enabling backgrounding, so I don't lose my translations when I switch to something else.
+
+=== 1.0 ===
+*Great app if you are learning a foreign language* 2010-08-10 by Edward Manchester
+ Simply amazing! I am learning Polish, and with this program it is very easy for me to read Polish language websites (with the English translation in green immediately following each sentence that is in Polish). Works with any language pair. If you are trying to learn a foreign language, you really must try this program. It will let you read the news in a foreign language without getting frustrated, and appears to be a very fast way of expanding your vocabulary. I wish I had this program years ago when I first started learning Polish.
