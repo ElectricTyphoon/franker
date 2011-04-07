@@ -5,6 +5,9 @@ _iTunes Store shows customer reviews for app's last version only.<br/>
 I believe that is not fair for users who spent their time and wrote a review that nobody (except the developer) can see._
 
 === 3.1 ===
+*Excellent for language learning* (2011-04-03) by bbbozzz
+ I've found it a huge help. The interface is very simple and allows learning in context. I like to try sources covering the same topic in both the target and my native language. I would like to be able to change the target language without having to go into settings. As a bonus, I've found it works well with other browsers like Atomic as well
+
 *A translator's dream* 2011-03-24 by krothrock
  Perfect for the student of any language. Useful even when already fluent, for particularly technical language.
 
