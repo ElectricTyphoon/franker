@@ -7,7 +7,7 @@ I believe that is not fair for users who spent their time and wrote a review tha
 === 3.1 ===
 *Readability function currently lousy* (2011-04-12) by krothrock
  The readability function used to be great, but the new pop up options are lousy, and it's impossible to highlight any text in that view, except for the title. Please fix this.<br/>
- _Comment from developer: This issue affects iPad only and is fixed in 3.2 (will be released soon)_
+ _Comment from developer: This issue affects iPad only and is fixed in 3.2_
 
 *Excellent for language learning* (2011-04-03) by bbbozzz
  I've found it a huge help. The interface is very simple and allows learning in context. I like to try sources covering the same topic in both the target and my native language. I would like to be able to change the target language without having to go into settings. As a bonus, I've found it works well with other browsers like Atomic as well<br/>
