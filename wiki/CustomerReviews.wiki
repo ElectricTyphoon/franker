@@ -7,8 +7,8 @@ I believe that is not fair for users who spent their time and wrote a review tha
 === 3.2 ===
 
 *how to change the target language?* (2011-08-06) by Неработает
- Как попасть в настройки ? Для смены языка перевода ? ) если кто справился , поделитесь )
- _Комментарий разработчика: Язык перевода можно выставить в глобальных Настройках_
+ Как попасть в настройки ? Для смены языка перевода ? ) если кто справился , поделитесь )<br/>
+ _Комментарий разработчика: Язык перевода можно выставить в глобальных Настройках_<br/>
  _Comment from developer: Language and other preferences are in the global Settings app_
 
 *Flott!!!* (2011-08-05) by The awesome faner
