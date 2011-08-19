@@ -34,17 +34,13 @@ function frankerInjectSetShortcut(str, func) {
 	});
 }
 
-// ==== Frankation ====
-
 function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
-		frankerInjectCoverShow();
 		frankerInjectInitPort();
 		frankerInjectTranslateNextSentence();
+	} else if (window == window.top) {
+		alert('Frankate failed, select a block of text first!');
 	}
-//	else if (window == window.top) {
-//		alert("Frankate failed, select a block of text first!");
-//	}
 }
 
 function frankerInjectTranslateNextSentence() {
@@ -52,7 +48,6 @@ function frankerInjectTranslateNextSentence() {
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
 			frankerPort.disconnect();
-			frankerInjectCoverHide();
 			return;
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
@@ -64,59 +59,17 @@ function frankerInjectClean() {
 	frankerCoreClean(document);
 }
 
-// ==== Cover ====
-
-function frankerInjectPutInCenter(element) { 
-	var d = document; 
-	var rootElm = d.body; //(d.documentelement && d.compatMode == 'CSS1Compat') ? d.documentelement : d.body; 
-	var vpw = self.innerWidth ? self.innerWidth : rootElm.clientWidth; // viewport width 
-	var vph = self.innerHeight ? self.innerHeight : rootElm.clientHeight; // viewport height 
-	var myDiv = element; //d.getelementById(id); 
-	myDiv.style.position = 'absolute'; 
-	myDiv.style.left = ((vpw - 100) / 2) + 'px';  
-	myDiv.style.top = (rootElm.scrollTop + (vph - 100)/2 ) + 'px'; 
-}
-
-function frankerInjectCoverShow() {
-	var cover = document.getElementById('frankercover');
-	cover.style.height = document.body.clientHeight+"px";
-	cover.style.display = "block";
-	var coverText = document.getElementById('frankercovertext');
-	frankerInjectPutInCenter(coverText);
-	coverText.style.display = "block";
-}
-
-function frankerInjectCoverHide() {
-	document.getElementById('frankercover').style.display = "none";
-	document.getElementById('frankercovertext').style.display = "none";
-}
-
 // ==== Initial ====
 var frankerPort;
 function frankerInjectInitPort() {
-	if (typeof frankerPort != "undefined") {
-		frankerPort.disconnect();
-	}
 	frankerPort = chrome.extension.connect({name: "Franker"});
 	frankerPort.onMessage.addListener(frankerInjectHandleMessage);
 }
 
 frankerInjectInitPort();
 
-// - settings -
 frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
 frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
 frankerPort.postMessage({name: "styleDestinationRequest"});
 frankerPort.postMessage({name: "injectBeforeRequest"});
 frankerPort.postMessage({name: "injectBracketsRequest"});
-
-// - cover -
-var cover = document.createElement('div');
-cover.id = "frankercover";
-cover.setAttribute("onmousedown","var event = arguments[0] || window.event; event.preventDefault();");
-document.body.appendChild(cover);
-
-var coverText = document.createElement('div');
-coverText.id = "frankercovertext";
-coverText.appendChild(document.createTextNode("Frankating..."));
-cover.appendChild(coverText);
