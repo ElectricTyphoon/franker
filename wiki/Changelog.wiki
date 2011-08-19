@@ -36,7 +36,8 @@
  * Context menu item;
  * Improvements for websites with frames;
  * Semi-transparent cover with a message while frankating to prevent users from deselecting text;
- * Default shortcuts updated to fit Windows and Linux (Ctrl+Alt+F and Ctrl+Alt+C now)
+ * Default shortcuts updated to fit Windows and Linux (Ctrl+Alt+F and Ctrl+Alt+C now);
+ * Placebo "Save changes" button on extension options page.
 
 == 1.1.2 (2011-03-21) ==
  * Fixes error contacting the translation service.
