@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<title>The Real Franker!</title>
+		<script type="text/javascript">
+			if (!localStorage["langSrc"]) { localStorage["langSrc"] = "auto" };
+			if (!localStorage["langDst"]) { localStorage["langDst"] = "en" };
+			if (!localStorage["shortcutFrankate"]) { localStorage["shortcutFrankate"] = "Ctrl+F" };
+			if (!localStorage["shortcutClean"]) { localStorage["shortcutClean"] = "Ctrl+Shift+F" };
+			if (!localStorage["style"]) { localStorage["style"] = "color: #292;" };
+			if (!localStorage["inject_before"]) { localStorage["inject_before"] = "false" };
+			if (!localStorage["inject_brackets"]) { localStorage["inject_brackets"] = "true" };
+	    </script>
+		<script type="text/javascript" src="http://www.google.com/jsapi?key=INSERT-YOUR-KEY">
+	    </script>
+		<script type="text/javascript">
+			google.load("language", "1");
+			var srcText;
+			var frankerPort;
+			function translateCallBack(result) {
+				frankerPort.postMessage({name:"frankateSelectionResponse", message:result.translation});
+			}
+			function respondToMessage(theMessageEvent) {
+		    	if(theMessageEvent.name === "frankateSelectionRequest") {
+					var langSrc = localStorage["langSrc"];
+					var langDst = localStorage["langDst"];
+					srcText = theMessageEvent.message;
+					//langDst = safari.extension.settings.lang_dst;
+					if (langSrc == "auto") {
+						google.language.translate(srcText, "", langDst, translateCallBack);
+					} else {
+						google.language.translate(srcText, langSrc, langDst, translateCallBack);
+					}
+				} else if (theMessageEvent.name === "shortcutFrankateSelectionRequest") {
+					frankerPort.postMessage({name:"shortcutFrankateSelectionValue", message:localStorage["shortcutFrankate"]});
+				} else if (theMessageEvent.name === "shortcutFrankateCleanRequest") {
+					frankerPort.postMessage({name:"shortcutFrankateCleanValue", message:localStorage["shortcutClean"]});
+				} else if (theMessageEvent.name === "styleDestinationRequest") {
+					frankerPort.postMessage({name:"styleDestinationValue", message:localStorage["style"]});
+				} else if (theMessageEvent.name === "injectBeforeRequest") {
+					frankerPort.postMessage({name:"injectBeforeValue", message:localStorage["inject_before"]});
+				} else if (theMessageEvent.name === "injectBracketsRequest") {
+					frankerPort.postMessage({name:"injectBracketsValue", message:localStorage["inject_brackets"]});
+				}
+			}
+			
+			
+			chrome.extension.onConnect.addListener(function(port) {
+			  frankerPort = port;
+			  console.assert(port.name == "Franker");
+			  port.onMessage.addListener(respondToMessage);
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
