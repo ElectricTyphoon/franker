@@ -31,7 +31,7 @@
 
 = Chrome Extension =
 
-== 1.2.0 (2011-08-??) ==
+== 1.2.0 (2011-08-19) ==
  * Support for Bing Translator (in addition to Google Translate engine);
  * Context menu item;
  * Improvements for websites with frames;
