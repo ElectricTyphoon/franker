@@ -1,6 +1,11 @@
 #labels Featured
 = Safari Extension =
 
+== 1.2.0 (2011-08-??) ==
+ * Support for Bing Translator (in addition to Google Translate engine);
+ * Semi-transparent cover with a message while frankating to prevent users from deselecting text;
+ * Default shortcuts updated to fit Windows and Linux (Ctrl+Alt+F and Ctrl+Alt+C now)
+
 == 1.1.2 (2011-??-??) ==
  * Fixes error contacting the translation service.
 
@@ -25,6 +30,13 @@
 
 
 = Chrome Extension =
+
+== 1.2.0 (2011-08-??) ==
+ * Support for Bing Translator (in addition to Google Translate engine);
+ * Context menu item;
+ * Improvements for websites with frames;
+ * Semi-transparent cover with a message while frankating to prevent users from deselecting text;
+ * Default shortcuts updated to fit Windows and Linux (Ctrl+Alt+F and Ctrl+Alt+C now)
 
 == 1.1.2 (2011-03-21) ==
  * Fixes error contacting the translation service.
