@@ -13,6 +13,7 @@ function frankerReadabilityHideTip() {
 }
 
 function frankerReadabilityToggleStyles() {
+	window.scrollTo(0,0);
 	$("#rdb-actions a[href='#settings']").trigger('click');	
 	//readability.mobile.single.toggleStyles(true);
 	//readability.mobile.single.toggleNav(true);
