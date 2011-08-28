@@ -1,6 +1,6 @@
 {
   "name": "Franker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Expand your vocabulary by parallel reading web sites.",
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
   "background_page": "global.html",
