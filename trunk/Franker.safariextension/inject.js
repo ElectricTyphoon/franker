@@ -15,6 +15,9 @@ function frankerInjectHandleMessage(msgEvent) {
 				alert('Franker error: No translation received.\nEither autodetect failed or Google Translate does not support this language pair.');
 				return;
 			}
+			if (frankerCoreGetSelectedText(document, true) == "") {
+				break;
+			}
 			frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerInjectBefore, frankerInjectBrackets);
 			frankerInjectTranslateNextSentence();
 			break;
@@ -70,6 +73,7 @@ function frankerInjectSetShortcut(msgEvent, func) {
 
 function frankerInjectFrankate() {
 	if (frankerCoreInit(document) == 0) {
+		frankerInjectCoverShow();
 		frankerInjectTranslateNextSentence();
 	} else if (window == window.top) {
 		alert('Franker error: No text selected.\nPlease, select text and try again.');
@@ -80,6 +84,7 @@ function frankerInjectTranslateNextSentence() {
 	var srcText = "";
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
+			frankerInjectCoverHide();
 			return;
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
@@ -119,15 +124,65 @@ function frankerInjectTransformGoogleTranslationBlocks() {
 	}
 }
 
+
+// ==== Cover ====
+
+function frankerInjectPutInCenter(element) { 
+	var d = document; 
+	var rootElm = d.body; //(d.documentelement && d.compatMode == 'CSS1Compat') ? d.documentelement : d.body; 
+	var vpw = self.innerWidth ? self.innerWidth : rootElm.clientWidth; // viewport width 
+	var vph = self.innerHeight ? self.innerHeight : rootElm.clientHeight; // viewport height 
+	var myDiv = element; //d.getelementById(id); 
+	myDiv.style.position = 'absolute'; 
+	myDiv.style.left = ((vpw - 100) / 2) + 'px';  
+	myDiv.style.top = (rootElm.scrollTop + (vph - 100)/2 ) + 'px'; 
+}
+
+function frankerInjectCoverShow() {
+	var cover = document.getElementById('frankercover');
+	cover.style.height = document.body.clientHeight+"px";
+	cover.style.display = "block";
+	var coverText = document.getElementById('frankercovertext');
+	frankerInjectPutInCenter(coverText);
+	coverText.style.display = "block";
+}
+
+function frankerInjectCoverHide() {
+	document.getElementById('frankercover').style.display = "none";
+	document.getElementById('frankercovertext').style.display = "none";
+}
+
+
 // ==== Initial ====
 
-safari.self.addEventListener("message", frankerInjectHandleMessage, false);
+function init() {
+	// - listener -
+	safari.self.addEventListener("message", frankerInjectHandleMessage, false);
 
-safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
-safari.self.tab.dispatchMessage("shortcutFrankateClearRequest", "");
-safari.self.tab.dispatchMessage("styleDestinationRequest", "");
-safari.self.tab.dispatchMessage("injectBeforeRequest", "");
-safari.self.tab.dispatchMessage("injectBracketsRequest", "");
+	// - settings -
+	safari.self.tab.dispatchMessage("shortcutFrankateSelectionRequest", "");
+	safari.self.tab.dispatchMessage("shortcutFrankateClearRequest", "");
+	safari.self.tab.dispatchMessage("styleDestinationRequest", "");
+	safari.self.tab.dispatchMessage("injectBeforeRequest", "");
+	safari.self.tab.dispatchMessage("injectBracketsRequest", "");
 
-safari.self.tab.dispatchMessage("shortcutFrankatePageRequest", "");
-safari.self.tab.dispatchMessage("statePageEnabledRequest", "");
+	safari.self.tab.dispatchMessage("shortcutFrankatePageRequest", "");
+	safari.self.tab.dispatchMessage("statePageEnabledRequest", "");
+
+	// - cover -
+	var cover = document.createElement('div');
+	cover.id = "frankercover";
+	cover.setAttribute("onmousedown","var event = arguments[0] || window.event; event.preventDefault();");
+
+	var coverText = document.createElement('div');
+	coverText.id = "frankercovertext";
+	coverText.appendChild(document.createTextNode("Frankating..."));
+	
+	cover.appendChild(coverText);
+	document.body.appendChild(cover);
+}
+
+// filtering out weird pages (like facebook blocks on dn.se)
+if (document.body != null) {
+	init();
+}
