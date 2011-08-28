@@ -2,9 +2,10 @@
 	<head>
 		<title>The Real Franker!</title>
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=INSERT-YOUR-KEY">
-	    </script>
+		</script>
 		<script type="text/javascript">
 			google.load("language", "1");
+			var bingAppID = "INSERT-YOUR-KEY";
 		</script>
 		<script type="text/javascript">
 			// broadcasts a message to all pages, used to propagate the settings (see issue #7)
@@ -21,19 +22,35 @@
 			}
 		</script>
 		<script type="text/javascript">
+			function translate(text) {
+				var langSrc = safari.extension.settings.lang_src;
+				if (langSrc == "auto") {
+					langSrc = "";
+				}
+				var langDst = safari.extension.settings.lang_dst;
+				var engine = safari.extension.settings.engine;
+				
+				if (engine == "GOOGLE") {
+					google.language.translate(text, langSrc, langDst, translateCallBack);
+				} else if (engine == "BING") {
+					var bingURL = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate?oncomplete=translateCallBack&appId="+bingAppID+"&from=" + langSrc + "&to=" + langDst + "&contentType=text/html&text=" + encodeURIComponent(text);
+					injectScript("frankerBingScript", bingURL);
+				}
+			}
 			function translateCallBack(result) {
-				sendMessage("frankateSelectionResponse", result.translation);
+				var translation = "";
+				var engine = safari.extension.settings.engine;
+				if (engine == "GOOGLE") {
+					translation = result.translation;
+				} else if (engine == "BING") {
+					translation = result;
+				}
+				sendMessage("frankateSelectionResponse", translation);
 			}
 			function respondToMessage(theMessageEvent) {
 				switch (theMessageEvent.name) {
 					case "frankateSelectionRequest":
-						var srcText = theMessageEvent.message;
-						var langDst = safari.extension.settings.lang_dst;
-						if (safari.extension.settings.lang_src == "auto") {
-							google.language.translate(srcText, "", langDst, translateCallBack);
-						} else {
-							google.language.translate(srcText, safari.extension.settings.lang_src, langDst, translateCallBack);
-						}
+						translate(theMessageEvent.message);
 						break;
 					
 					// settings
@@ -70,6 +87,17 @@
 						sendMessage("statePageEnabledValue", safari.extension.settings.state_frankate_page);
 						break;
 				}
+			}
+			function injectScript(id, url){
+				var s = document.getElementById(id);
+				if (s != null) {
+					document.getElementsByTagName("head")[0].removeChild(s);
+				}
+				s = document.createElement("script");
+				s.id = id;
+				s.type = "text/javascript";
+				s.src = url;
+				document.getElementsByTagName("head")[0].appendChild(s);
 			}
 			safari.application.addEventListener("message", respondToMessage, false);
 		</script>

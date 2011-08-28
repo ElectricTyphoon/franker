@@ -3,12 +3,6 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>Title</key>
-		<string>Languages</string>
-		<key>Type</key>
-		<string>Group</string>
-	</dict>
-	<dict>
 		<key>DefaultValue</key>
 		<string>auto</string>
 		<key>Key</key>
@@ -276,6 +270,26 @@
 			<string>vi</string>
 			<string>cy</string>
 			<string>yi</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>GOOGLE</string>
+		<key>Key</key>
+		<string>engine</string>
+		<key>Title</key>
+		<string>Translate with</string>
+		<key>Titles</key>
+		<array>
+			<string>Bing Translator</string>
+			<string>Google Translate</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>BING</string>
+			<string>GOOGLE</string>
 		</array>
 	</dict>
 	<dict>
