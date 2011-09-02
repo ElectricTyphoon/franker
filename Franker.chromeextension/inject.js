@@ -68,27 +68,35 @@ function frankerInjectClean() {
 
 function frankerInjectPutInCenter(element) { 
 	var d = document; 
-	var rootElm = d.body; //(d.documentelement && d.compatMode == 'CSS1Compat') ? d.documentelement : d.body; 
+	var rootElm = d.body;
 	var vpw = self.innerWidth ? self.innerWidth : rootElm.clientWidth; // viewport width 
 	var vph = self.innerHeight ? self.innerHeight : rootElm.clientHeight; // viewport height 
-	var myDiv = element; //d.getelementById(id); 
+	var myDiv = element;
 	myDiv.style.position = 'absolute'; 
 	myDiv.style.left = ((vpw - 100) / 2) + 'px';  
 	myDiv.style.top = (rootElm.scrollTop + (vph - 100)/2 ) + 'px'; 
 }
 
 function frankerInjectCoverShow() {
-	var cover = document.getElementById('frankercover');
-	cover.style.height = document.body.clientHeight+"px";
-	cover.style.display = "block";
-	var coverText = document.getElementById('frankercovertext');
+	// - cover -
+	var cover = document.createElement('div');
+	cover.id = "franker_removable_cover";
+	cover.style.height = document.documentElement.scrollHeight+"px";
+	cover.setAttribute("onmousedown","var event = arguments[0] || window.event; event.preventDefault();");
+	
+	var coverText = document.createElement('div');
+	coverText.id = "frankercovertext";
+	coverText.appendChild(document.createTextNode("Frankating..."));
+	
+	cover.appendChild(coverText);
+	document.body.appendChild(cover);
+	
 	frankerInjectPutInCenter(coverText);
-	coverText.style.display = "block";
 }
 
 function frankerInjectCoverHide() {
-	document.getElementById('frankercover').style.display = "none";
-	document.getElementById('frankercovertext').style.display = "none";
+	var cover = document.getElementById('franker_removable_cover');
+	cover.parentNode.removeChild(cover);
 }
 
 // ==== Initial ====
@@ -101,22 +109,16 @@ function frankerInjectInitPort() {
 	frankerPort.onMessage.addListener(frankerInjectHandleMessage);
 }
 
-frankerInjectInitPort();
+function init() {
+	frankerInjectInitPort();
+	frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
+	frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
+	frankerPort.postMessage({name: "styleDestinationRequest"});
+	frankerPort.postMessage({name: "injectBeforeRequest"});
+	frankerPort.postMessage({name: "injectBracketsRequest"});
+}
 
-// - settings -
-frankerPort.postMessage({name: "shortcutFrankateSelectionRequest"});
-frankerPort.postMessage({name: "shortcutFrankateCleanRequest"});
-frankerPort.postMessage({name: "styleDestinationRequest"});
-frankerPort.postMessage({name: "injectBeforeRequest"});
-frankerPort.postMessage({name: "injectBracketsRequest"});
-
-// - cover -
-var cover = document.createElement('div');
-cover.id = "frankercover";
-cover.setAttribute("onmousedown","var event = arguments[0] || window.event; event.preventDefault();");
-document.body.appendChild(cover);
-
-var coverText = document.createElement('div');
-coverText.id = "frankercovertext";
-coverText.appendChild(document.createTextNode("Frankating..."));
-cover.appendChild(coverText);
+// filtering out weird pages (like facebook blocks on dn.se)
+if (document.body != null) {
+	init();
+}
