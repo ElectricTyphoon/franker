@@ -1,6 +1,10 @@
 #labels Featured
 = Safari Extension =
 
+== 1.2.2 (2011-09-02) ==
+ * Fixed bug "Frankate..." cover shows unexpectedly (see issue #12)
+ * Cover opacity is 30%
+
 == 1.2.1 (2011-08-29) ==
  * Support for Bing Translator (in addition to Google Translate engine);
  * Semi-transparent cover with a message while frankating to prevent users from deselecting text;
@@ -33,8 +37,11 @@
 
 = Chrome Extension =
 
-== 1.2.1 (2011-08-??) ==
- * Slightly lightened cover (20% opacity, was 50%)
+== 1.2.2 (2011-09-02) ==
+ * Fixed bug "Frankate..." cover shows unexpectedly (see issue #12)
+ * Slightly lightened cover (30% opacity, was 50%)
+
+== 1.2.1 (skipped) ==
 
 == 1.2.0 (2011-08-19) ==
  * Support for Bing Translator (in addition to Google Translate engine);
