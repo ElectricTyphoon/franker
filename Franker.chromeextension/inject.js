@@ -6,6 +6,11 @@ var frankerInjectBrackets = true;
 
 function frankerInjectHandleMessage(msgEvent) {
 	if (msgEvent.name == "frankateSelectionResponse") {
+		if (typeof msgEvent.message == "undefined" || msgEvent.message.length == 0) {
+			alert('Franker error: No translation received.\n\nEither autodetect failed or translation service does not support this language pair or wrong API key specified.\n\nTry to set exact "Translate from" language and/or switch translation service ("Translate with" field) and/or correct API key.');
+			frankerInjectStop();
+			return;
+		}
 		frankerCoreInjectTranslation(document, msgEvent.message, frankerUserStyle, frankerInjectBefore, frankerInjectBrackets);
 		frankerInjectTranslateNextSentence();
 	} else if (msgEvent.name == "shortcutFrankateSelectionValue") {
@@ -18,6 +23,9 @@ function frankerInjectHandleMessage(msgEvent) {
 		frankerInjectBefore = (msgEvent.message == "true");
 	} else if (msgEvent.name == "injectBracketsValue") {
 		frankerInjectBrackets = (msgEvent.message == "true");
+	} else if (msgEvent.name == "stop") {
+		frankerInjectStop();
+		return;
 	}
 }
 
@@ -51,8 +59,7 @@ function frankerInjectTranslateNextSentence() {
 	var srcText = "";
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
-			frankerPort.disconnect();
-			frankerInjectCoverHide();
+			frankerInjectStop();
 			return;
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
@@ -97,6 +104,13 @@ function frankerInjectCoverShow() {
 function frankerInjectCoverHide() {
 	var cover = document.getElementById('franker_removable_cover');
 	cover.parentNode.removeChild(cover);
+}
+
+function frankerInjectStop() {
+	if (typeof frankerPort != "undefined") {
+		frankerPort.disconnect();
+	}
+	frankerInjectCoverHide();
 }
 
 // ==== Initial ====
