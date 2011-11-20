@@ -73,7 +73,7 @@
 				var translation = "";
 				var engine = localStorage["engine"];
 				if (engine == "GOOGLE") {
-					translation = result.translation;
+					translation = result.data.translations[0].translatedText;
 				} else if (engine == "MICROSOFT") {
 					translation = result;
 				}
