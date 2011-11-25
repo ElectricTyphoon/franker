@@ -274,23 +274,39 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<string>GOOGLE</string>
+		<string>MICROSOFT</string>
 		<key>Key</key>
 		<string>engine</string>
 		<key>Title</key>
 		<string>Translate with</string>
 		<key>Titles</key>
 		<array>
-			<string>Bing Translator</string>
+			<string>Microsoft Translator</string>
 			<string>Google Translate</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<string>BING</string>
+			<string>MICROSOFT</string>
 			<string>GOOGLE</string>
 		</array>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>microsoft_api_key</string>
+		<key>Title</key>
+		<string>Microsoft API Key</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>google_api_key</string>
+		<key>Title</key>
+		<string>Google API Key</string>
+		<key>Type</key>
+		<string>TextField</string>
 	</dict>
 	<dict>
 		<key>Type</key>

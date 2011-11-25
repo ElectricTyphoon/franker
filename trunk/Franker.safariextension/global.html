@@ -1,11 +1,12 @@
 <html>
 	<head>
 		<title>The Real Franker!</title>
-		<script type="text/javascript" src="http://www.google.com/jsapi?key=INSERT-YOUR-KEY">
-		</script>
 		<script type="text/javascript">
-			google.load("language", "1");
-			var bingAppID = "INSERT-YOUR-KEY";
+			var GOOGLE_API_KEY_DEFAULT    = "INSERT-YOUR-KEY";
+			var MICROSOFT_API_KEY_DEFAULT = "INSERT-YOUR-KEY";
+			var GOOGLE_URL_TEMPLATE = "https://www.googleapis.com/language/translate/v2?callback=translateCallBack&key=%APIKEY%&q=%TEXT%&target=%DST%&source=%SRC%";
+			var MICROSOFT_URL_TEMPLATE = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate?oncomplete=translateCallBack&contentType=text/plain&appId=%APIKEY%&text=%TEXT%&to=%DST%&from=%SRC%";
+			var MICROSOFT_URL_LANGS_TEMPLATE = "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguagesForTranslate?oncomplete=languagesCallBack&appId=%APIKEY%"
 		</script>
 		<script type="text/javascript">
 			// broadcasts a message to all pages, used to propagate the settings (see issue #7)
@@ -23,6 +24,8 @@
 		</script>
 		<script type="text/javascript">
 			function translate(text) {
+				var escapedText = encodeURIComponent(text).replace(/%22/g, '%26quot;');
+				
 				var langSrc = safari.extension.settings.lang_src;
 				if (langSrc == "auto") {
 					langSrc = "";
@@ -30,19 +33,51 @@
 				var langDst = safari.extension.settings.lang_dst;
 				var engine = safari.extension.settings.engine;
 				
-				if (engine == "GOOGLE") {
-					google.language.translate(text, langSrc, langDst, translateCallBack);
-				} else if (engine == "BING") {
-					var bingURL = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate?oncomplete=translateCallBack&appId="+bingAppID+"&from=" + langSrc + "&to=" + langDst + "&contentType=text/html&text=" + encodeURIComponent(text);
-					injectScript("frankerBingScript", bingURL);
+				// handling "BING" as it was used before, in 1.2.2; this _additional_ check can be removed in version > 1.3.0
+				if (engine == "BING") {
+					engine = "MICROSOFT";
+					safari.extension.settings.engine = "MICROSOFT";
 				}
+				
+				var url = "";
+				if (engine == "GOOGLE") {
+					var apiKey = safari.extension.settings.google_api_key;
+					if (!apiKey || apiKey == "") {
+						alert("Franker error: Google Translate requires API key.\n\nPlease, set it at the Franker extension options page.");
+						sendMessage("stop","");
+						return;
+					}
+					url = GOOGLE_URL_TEMPLATE.replace("%APIKEY%", apiKey);
+					url = url.replace("%TEXT%", escapedText);
+					url = (langSrc != "") ? url.replace("%SRC%", langSrc) : url.replace("&source=%SRC%", "");
+					url = url.replace("%DST%", langDst);
+				} else if (engine == "MICROSOFT") {
+					var apiKey = safari.extension.settings.microsoft_api_key;
+					if (!apiKey || apiKey == "") {
+						apiKey = MICROSOFT_API_KEY_DEFAULT;
+					}
+					if ((langSrc != "" && !(langSrc in microsoftLanguages)) || !(langDst in microsoftLanguages)) {
+						alert("Franker error: Microsoft Translator does not support this language pair: "+langSrc+"-"+langDst+".\n\nSupported languages: "+microsoftLanguagesArray+".\n\nPlease, adjust language settings at the Franker extension options page.");
+						sendMessage("stop","");
+						return;
+					}
+					url = MICROSOFT_URL_TEMPLATE.replace("%APIKEY%", apiKey);
+					url = url.replace("%TEXT%", escapedText);
+					url = url.replace("%SRC%", langSrc);
+					url = url.replace("%DST%", langDst);
+				} else {
+					return;
+				}
+				//alert(url);
+				injectScript("frankerScript", url);
 			}
+			
 			function translateCallBack(result) {
 				var translation = "";
 				var engine = safari.extension.settings.engine;
 				if (engine == "GOOGLE") {
-					translation = result.translation;
-				} else if (engine == "BING") {
+					translation = result.data.translations[0].translatedText;
+				} else if (engine == "MICROSOFT") {
 					translation = result;
 				}
 				sendMessage("frankateSelectionResponse", translation);
@@ -129,6 +164,17 @@
 				}
 			}
 			safari.extension.settings.addEventListener("change", settingsChanged, false);
+		</script>
+		<script type="text/javascript">
+			var microsoftLanguages = {};
+			var microsoftLanguagesArray = [];
+			function languagesCallBack(result) {
+				microsoftLanguagesArray = result;
+				for(var i=0;i<result.length;i++) {
+					microsoftLanguages[result[i]]='';
+				}
+			}
+			injectScript("microsoftLanguagesScript", MICROSOFT_URL_LANGS_TEMPLATE.replace("%APIKEY%", MICROSOFT_API_KEY_DEFAULT));
 		</script>
 	</head>
 	<body>
