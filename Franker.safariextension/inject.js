@@ -11,8 +11,9 @@ function frankerInjectHandleMessage(msgEvent) {
 			frankerInjectFrankate();
 			break;
 		case "frankateSelectionResponse":
-			if (msgEvent.message.length == 0) {
-				alert('Franker error: No translation received.\nEither autodetect failed or Google Translate does not support this language pair.');
+			if (typeof msgEvent.message == "undefined" || msgEvent.message.length == 0) {
+				alert('Franker error: No translation received.\n\nEither autodetect failed or translation service does not support this language pair or wrong API key specified.\n\nTry to set exact "Translate from" language and/or switch translation service ("Translate with" field) and/or correct API key.');
+				frankerInjectStop();
 				return;
 			}
 			if (frankerCoreGetSelectedText(document, true) == "") {
@@ -51,6 +52,11 @@ function frankerInjectHandleMessage(msgEvent) {
 				frankerInjectTransformGoogleTranslationBlocks();
 			}
 			break;
+		
+		// stop
+		case "stop":
+			frankerInjectStop();
+			break;
 	}
 }
 
@@ -84,7 +90,7 @@ function frankerInjectTranslateNextSentence() {
 	var srcText = "";
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
-			frankerInjectCoverHide();
+			frankerInjectStop();
 			return;
 		}
 		srcText = frankerCoreGetSelectedText(document, true);
@@ -157,7 +163,13 @@ function frankerInjectCoverShow() {
 
 function frankerInjectCoverHide() {
 	var cover = document.getElementById('franker_removable_cover');
-	cover.parentNode.removeChild(cover);
+	if (typeof cover != "undefined") {
+		cover.parentNode.removeChild(cover);
+	}
+}
+
+function frankerInjectStop() {
+	frankerInjectCoverHide();
 }
 
 
