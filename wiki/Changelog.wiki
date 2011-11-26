@@ -1,9 +1,16 @@
 #labels Featured
 = Safari Extension =
 
+== 1.3.0 (2011-11-25) ==
+ * Support translation services' API keys;
+ * Switched to Google Translate API v2 (paid);
+ * Better error handling with descriptive alerts;
+ * Hiding semi-transparent cover on error;
+ * "Bing Translator" renamed to "Microsoft Translator".
+
 == 1.2.2 (2011-09-02) ==
- * Fixed bug "Frankate..." cover shows unexpectedly (see issue #12)
- * Cover opacity is 30%
+ * Fixed bug "Frankate..." cover shows unexpectedly (see issue #12);
+ * Cover opacity is 30%.
 
 == 1.2.1 (2011-08-29) ==
  * Support for Bing Translator (in addition to Google Translate engine);
@@ -36,6 +43,12 @@
 
 
 = Chrome Extension =
+
+== 1.3.0 (2011-11-20) ==
+ * Support translation services' API keys;
+ * Switched to Google Translate API v2 (paid);
+ * Better error handling with descriptive alerts;
+ * Hiding semi-transparent cover on error;
 
 == 1.2.2 (2011-09-02) ==
  * Fixed bug "Frankate..." cover shows unexpectedly (see issue #12)
