@@ -2,7 +2,7 @@
 #labels Featured
 
 Franker requires API key for Google Translate option only.<br>
-Microsoft Translator option can be used without API key (just put nothing to the respective field). In this case Franker uses hard-coded default API key.
+Microsoft Translator option (default) can be used without API key (just put nothing to the respective field). In this case Franker uses hard-coded default API key.
 
 In order to use Google Translate, you have to [http://code.google.com/apis/language/translate/v2/pricing.html fetch API key from Google].
 This is paid service, you pay by usage.
