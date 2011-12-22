@@ -11,7 +11,7 @@
 		<string>Translate from</string>
 		<key>Titles</key>
 		<array>
-			<string>Autodetect</string>
+			<string>Detect language</string>
 			<string>Afrikaans</string>
 			<string>Albanian</string>
 			<string>Arabic</string>
