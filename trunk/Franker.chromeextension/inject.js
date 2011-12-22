@@ -103,7 +103,9 @@ function frankerInjectCoverShow() {
 
 function frankerInjectCoverHide() {
 	var cover = document.getElementById('franker_removable_cover');
-	cover.parentNode.removeChild(cover);
+	if (typeof cover != "undefined") {
+		cover.parentNode.removeChild(cover);
+	}
 }
 
 function frankerInjectStop() {
