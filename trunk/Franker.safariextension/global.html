@@ -56,6 +56,10 @@
 					if (!apiKey || apiKey == "") {
 						apiKey = MICROSOFT_API_KEY_DEFAULT;
 					}
+					if (langSrc == "zh-CN") { langSrc = "zh-CHS" }
+					if (langSrc == "zh-TW") { langSrc = "zh-CHT" }
+					if (langDst == "zh-CN") { langDst = "zh-CHS" }
+					if (langDst == "zh-TW") { langDst = "zh-CHT" }
 					if ((langSrc != "" && !(langSrc in microsoftLanguages)) || !(langDst in microsoftLanguages)) {
 						alert("Franker error: Microsoft Translator does not support this language pair: "+langSrc+"-"+langDst+".\n\nSupported languages: "+microsoftLanguagesArray+".\n\nPlease, adjust language settings at the Franker extension options page.");
 						sendMessage("stop","");
