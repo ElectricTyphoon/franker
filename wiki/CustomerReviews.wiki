@@ -4,6 +4,26 @@
 _iTunes Store shows customer reviews for app's last version only.<br/>
 I believe that is not fair for users who spent their time and wrote a review that nobody (except the developer) can see._
 
+=== 3.4.0 ===
+
+*Отличная идея и добротная реализация* (2012-03-19) by VisualPharm
+ Кому нравится метод Ильи франка, тому понравится и эта программа. Работает отлично, видно, что автор делал "как для себя": придумал детали. Для редких языков, для которых нет подготовленных по методу франка книг, вообще незаменима. Спа-си-бо.
+
+*Amazing* (2012-03-10) by Benjavi80
+ Extraordinary idea and execution; perfect for language learners. Cannot recommend it enough.
+
+*Нормально* (2012-03-06) by Djkjlz112
+ Нормально работает
+
+*Works great with Wikipedia* (2012-02-01) by BAR112
+ Haven't figured out yet how to read other websites, but seems to be a great tool for learning languages!
+
+*отличная прога* (2011-12-13) by goldrus
+ огромное спасибо за замечательную прогу, блгодаря ей есть возможность читать сайты на незнакомых языках
+
+*Good but...* (2011-11-29) by Kevin Rothrock
+ Good app. But readability features are awkward with the top option bar swinging down whenever I tap on text to highlight. Also, would like a 'undo translation' option to clean up the text, like the browser extension can do. Would love the text-to-speech function to work for whole paragraphs/articles, not just individual words.
+
 === 3.2 ===
 
 *Great!* (2011-08-29) by edrca
