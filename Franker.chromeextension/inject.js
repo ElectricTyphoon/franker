@@ -2,6 +2,8 @@ var frankerUserStyle = "";
 var frankerInjectBefore = false;
 var frankerInjectBrackets = true;
 
+var frankerWorks = false;
+
 // ==== Message Management ====
 
 function frankerInjectHandleMessage(msgEvent) {
@@ -45,20 +47,61 @@ function frankerInjectSetShortcut(str, func) {
 // ==== Frankation ====
 
 function frankerInjectFrankate() {
+	frankerInjectPreprocess();
 	if (frankerCoreInit(document) == 0) {
 		frankerInjectCoverShow();
 		frankerInjectInitPort();
 		frankerInjectTranslateNextSentence();
+		window.onscroll = frankerInjectOnScroll;
 	}
-//	else if (window == window.top) {
-//		alert("Frankate failed, select a block of text first!");
-//	}
+}
+
+// Enables Franker to automatically select article body (if possible) in some known cases (like Readability page)
+// Does nothing if a portion of the page is selected or was frankated already (do not mess up with custom (user's) selection)
+function frankerInjectPreprocess() {
+	var frankerNodes = document.getElementsByClassName('franker-dst-text');
+	if (frankerNodes.length != 0 || document.getSelection().toString() != "") {
+		return;
+	}
+	if (document.location.href.indexOf("readability.com/articles/") > 0) {
+		var contentElem = document.getElementById("rdb-article-content");
+		var range = document.createRange();
+		range.selectNode(contentElem);
+		var sel = document.getSelection();
+		sel.removeAllRanges();
+		sel.addRange(range);
+	}
+}
+
+function frankerInjectOnScroll() {
+	if (frankerWorks) {
+		return; // guard against triggering frankation on scroll if it works already (triggered by previous scroll event)
+	}
+	frankerInjectInitPort();
+	document.frankerInfinityGuard = 50;
+	frankerInjectTranslateNextSentence();
+}
+
+function frankerInjectIsBelowStopLine(node) {
+	var tmpNode = node;
+	var offsetTop = 0;
+	do {
+		offsetTop += tmpNode.offsetTop;
+	} while (tmpNode = tmpNode.offsetParent)
+	return offsetTop > window.pageYOffset + window.innerHeight + 200;
 }
 
 function frankerInjectTranslateNextSentence() {
+	frankerWorks = true;
+	var lastNode = document.frankerLastInsertedNode;
+	if (lastNode && frankerInjectIsBelowStopLine(lastNode)) {
+		frankerInjectStop();
+		return;
+	}
 	var srcText = "";
 	while (srcText == "") {
 		if (frankerCoreSelectNextSentence(document) != 0) {
+			window.onscroll = "";
 			frankerInjectStop();
 			return;
 		}
@@ -67,9 +110,18 @@ function frankerInjectTranslateNextSentence() {
 	frankerPort.postMessage({name:"frankateSelectionRequest", message:srcText});
 }
 
+function frankerInjectStop() {
+	if (typeof frankerPort != "undefined") {
+		frankerPort.disconnect();
+	}
+	frankerInjectCoverHide();
+	frankerWorks = false;
+}
+
 function frankerInjectClean() {
 	frankerCoreClean(document);
 }
+
 
 // ==== Cover ====
 
@@ -103,17 +155,11 @@ function frankerInjectCoverShow() {
 
 function frankerInjectCoverHide() {
 	var cover = document.getElementById('franker_removable_cover');
-	if (typeof cover != "undefined") {
+	if (typeof cover != "undefined" && cover != null) {
 		cover.parentNode.removeChild(cover);
 	}
 }
 
-function frankerInjectStop() {
-	if (typeof frankerPort != "undefined") {
-		frankerPort.disconnect();
-	}
-	frankerInjectCoverHide();
-}
 
 // ==== Initial ====
 var frankerPort;
