@@ -1,6 +1,6 @@
 // Franker core library
 // 
-// Version: 1.1.1
+// Version: 1.1.2
 // Author: Yurii Soldak (http://franker.googlecode.com)
 
 // initializes franker variables, remembers user selection bounds.
@@ -14,6 +14,7 @@ function frankerCoreInit(doc) {
 	}
 	doc.frankerUserRange = selection.getRangeAt(0).cloneRange();
 	doc.frankerInfinityGuard = 50;
+	doc.frankerLastInsertedNode = null;
 	
 	selection.collapseToStart();
 	selection.modify("extend", "forward", "sentence");
@@ -104,6 +105,8 @@ function frankerCoreInjectTranslation(doc, translation, style, before, brackets)
 		newRange.selectNode(translationNode);
 		selection.addRange(newRange);
 	}
+	
+	doc.frankerLastInsertedNode = translationNode;
 	
 	frankerUtilExpandSelection(selection); // includes trailing whitespaces into the selection
 	selection.collapseToEnd();
