@@ -97,8 +97,13 @@ function frankerInjectPreprocess() {
 	if (frankerNodes.length != 0 || document.getSelection().toString() != "") {
 		return;
 	}
+	var contentElem = null;
 	if (document.location.href.indexOf("readability.com/articles/") > 0) {
-		var contentElem = document.getElementById("rdb-content");
+		contentElem = document.getElementById("rdb-content");
+	} else if (document.location.href.indexOf("instapaper.com/read/") > 0) {
+		contentElem = document.getElementById("article-content");
+	}
+	if (contentElem != null) {
 		var range = document.createRange();
 		range.selectNode(contentElem);
 		var sel = document.getSelection();
