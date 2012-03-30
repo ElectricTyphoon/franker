@@ -3,10 +3,10 @@
 
 == 1.4.0 (2012-??-??) ==
  * Pauses frankation if last inserted node is far below bottom edge of the browser window, resumes on scroll if necessary;
- * Selects the text body automatically (key press from user still required) if on Readability page.
+ * Selects the text body automatically if on Readability and Instapaper page (key press from user still required).
 
 == 1.3.1 (2011-12-22) ==
- * Fix for Chinese language (see issue #20);
+ * Fix for Chinese language (see issue #20).
 
 == 1.3.0 (2011-11-25) ==
  * Support translation services' API keys;
@@ -53,10 +53,10 @@
 
 == 1.4.0 (2012-??-??) ==
  * Pauses frankation if last inserted node is far below bottom edge of the browser window, resumes on scroll if necessary;
- * Selects the text body automatically (key press from user still required) if on Readability page.
+ * Selects the text body automatically if on Readability and Instapaper page (key press from user still required).
 
 == 1.3.1 (2011-12-22) ==
- * Fix for Chinese language (see issue #20);
+ * Fix for Chinese language (see issue #20).
 
 == 1.3.0 (2011-11-20) ==
  * Support translation services' API keys;
