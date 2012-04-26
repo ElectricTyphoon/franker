@@ -14,7 +14,11 @@ function frankerReadabilityHideTip() {
 
 function frankerReadabilityToggleStyles() {
 	window.scrollTo(0,0);
-	$("#rdb-actions a[href='#settings']").trigger('click');	
+	if (document.location.href.indexOf("readability.com/") > 0) {
+		$("#rdb-actions a[href='#settings']").trigger('click');	
+	} else if (document.location.href.indexOf("instapaper.com/read/") > 0 || document.location.href.indexOf("instapaper.com/text") > 0) {
+		dropMenu('textcontrolsmenu');
+	}
 	//readability.mobile.single.toggleStyles(true);
 	//readability.mobile.single.toggleNav(true);
 }
