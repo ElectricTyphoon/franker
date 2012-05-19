@@ -65,9 +65,9 @@ function frankerInjectPreprocess() {
 	}
 	var contentElem = null;
 	if (document.location.href.indexOf("readability.com/articles/") > 0) {
-		contentElem = document.getElementById("rdb-content");
-	} else if (document.location.href.indexOf("instapaper.com/read/") > 0) {
-		contentElem = document.getElementById("article-content");
+		contentElem = document.getElementById("article");
+	} else if (document.location.href.indexOf("instapaper.com/read/") > 0 || document.location.href.indexOf("instapaper.com/text") > 0) {
+		contentElem = document.getElementById("story");
 	}
 	if (contentElem != null) {
 		var range = document.createRange();
@@ -84,6 +84,15 @@ function frankerInjectOnScroll() {
 	}
 	frankerInjectInitPort();
 	document.frankerInfinityGuard = 50;
+	
+	// re-select last inserted node just in case user has selected something before scrolling
+	var range = document.createRange();
+	range.selectNode(document.frankerLastInsertedNode);
+	var sel = document.getSelection();
+	sel.removeAllRanges();
+	sel.addRange(range);
+	sel.collapseToEnd();
+	
 	frankerInjectTranslateNextSentence();
 }
 
