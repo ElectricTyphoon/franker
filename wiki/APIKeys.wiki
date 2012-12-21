@@ -7,7 +7,7 @@ Microsoft Translator option (default) can be used without API key (just put noth
 In order to use Google Translate, you have to [http://code.google.com/apis/language/translate/v2/pricing.html fetch API key from Google].
 This is paid service, you pay by usage.
 
-You may want use your [http://www.bing.com/developers/appids.aspx own API key for Microsoft Translator].
+You may want use your [https://datamarket.azure.com/dataset/1899a118-d202-492c-aa16-ba21c33c06cb own API key for Microsoft Translator].
 For example, to be sure other users service usage doesn't affect you (think about possibility Microsoft applies usage quota per API key in the future).
 The service is free (so far).
 
