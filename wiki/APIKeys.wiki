@@ -1,10 +1,9 @@
-#summary Translation service API keys
+#summary Franker needs access to Google or Microsoft Traslator service
 #labels Featured
 
-# Franker needs access to Google or Microsoft Traslator service #
-Franker uses remote translation services, access is paid (free tier exists for Microsoft).  
-Please follow instructions below to get access to either service (you need only one of them).  
-Collected ids/keys/secrets copy to respective fields in: **Safari > Preferences... > Extensions > Franker**  
+Franker uses remote translation services, access is paid (free tier exists for Microsoft).<br/>
+Please follow instructions below to get access to either service (you need only one of them).<br/>  
+Collected ids/keys/secrets copy to respective fields in: *Safari > Preferences... > Extensions > Franker*<br/>
 All your settings are stored securely locally and never transferred to 3rd parties or collected by other means.
 
   * *Microsoft Translator (2M chars/month free)*  
