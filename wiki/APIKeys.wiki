@@ -1,14 +1,14 @@
 #summary Translation service API keys
 #labels Featured
 
-Franker requires API key for Google Translate option only.<br>
-Microsoft Translator option (default) can be used without API key (just put nothing to the respective field). In this case Franker uses hard-coded default API key.
+# Franker needs access to Google or Microsoft Traslator service #
+Franker uses remote translation services, access is paid (free tier exists for Microsoft).  
+Please follow instructions below to get access to either service (you need only one of them).  
+Collected ids/keys/secrets copy to respective fields in: **Safari > Preferences... > Extensions > Franker**  
+All your settings are stored securely locally and never transferred to 3rd parties or collected by other means.
 
-In order to use Google Translate, you have to [http://code.google.com/apis/language/translate/v2/pricing.html fetch API key from Google].
-This is paid service, you pay by usage.
-
-You may want use your [https://datamarket.azure.com/dataset/1899a118-d202-492c-aa16-ba21c33c06cb own API key for Microsoft Translator].
-For example, to be sure other users service usage doesn't affect you (think about possibility Microsoft applies usage quota per API key in the future).
-The service is free (so far).
-
-All above applies to both (Safari and Chrome) browser extensions and iOS app.
+  * *Microsoft Translator (2M chars/month free)*  
+     [http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx Get your Client ID and Client Secret]
+  * *Google Translate (no free plan)*
+     [https://cloud.google.com/translate/v2/pricing Pricing info and setup billing],<br/>
+     [https://cloud.google.com/translate/v2/using_rest#auth Get your API key] (public API access, key for server applications)
